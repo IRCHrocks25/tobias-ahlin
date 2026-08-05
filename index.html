@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dörröppnaren — The Door Opener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --blue:#E8622C;          /* primary accent — bright orange (ref-sampled) */
+  --blue-dark:#C7481A;     /* accent hover */
+  --dark:#20262E;          /* dark blocks (was blue) */
+  --yellow:#E8622C;
+  --ink:#14171B;
+  --gray-70:#4A4A46;
+  --gray-50:#77756F;
+  --line:#DBD9D3;
+  --bg:#FFFFFF;
+  --bg-soft:#EDECE8;
+  --bg-tint:#F2F1ED;
+  --gutter:clamp(1rem, 5vw, 4rem);
+  --maxw:1240px;
+}
+
+/* ============ RESET / BASE (mobile-first) ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{max-width:100%;overflow-x:hidden}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
+  font-size:1rem;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,video{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+/* Wider container: used by the overlay header + hero so content sits closer to the edge */
+.wrap-wide{max-width:1680px;margin-inline:auto;padding-inline:clamp(1rem,3.2vw,3.25rem)}
+.section{border-bottom:1px solid var(--line)}
+.section-inner{padding-block:clamp(2.5rem,7vw,5rem)}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--blue);padding-bottom:.4rem}
+.eyebrow-ondark{color:#fff}
+h1,h2,h3{line-height:1.12;letter-spacing:-0.015em}
+.min-w-0{min-width:0}
+
+/* Arrow link — IKEA "Read more ›" pattern */
+.arrow-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-weight:700;font-size:.9375rem;text-decoration:none;color:var(--ink);
+  min-height:44px;
+}
+.arrow-link::after{content:"›";font-size:1.2em;color:var(--blue);transform:translateY(-1px)}
+.arrow-link:hover{text-decoration:underline}
+.arrow-link.blue{color:var(--blue)}
+
+/* Pill buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  white-space:normal;text-align:center;line-height:1.35;
+  border-radius:999px;border:0;cursor:pointer;text-decoration:none;
+  font-family:inherit;font-weight:700;font-size:1rem;
+  padding:.9rem 2rem;min-height:48px;
+  width:100%;
+  transition:background .15s ease;
+}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#333}
+.btn:focus-visible,.arrow-link:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--blue);outline-offset:2px;
+}
+@media (min-width:640px){.btn{width:auto}}
+.risk-note{font-size:.875rem;color:var(--gray-50);margin-top:.75rem}
+
+/* ============ HEADER ============ */
+.topbar{
+  position:absolute;top:0;left:0;right:0;z-index:60;
+  background:transparent;border-bottom:0;
+}
+.topbar .nav-desktop a{color:#fff}
+/* Logo is forced to solid white while it sits on the dark hero image.
+   Remove this rule if a light-on-transparent logo file is supplied instead. */
+.topbar .logo img{filter:brightness(0) invert(1)}
+.topbar .hamburger span{background:#fff}
+/* Language switch */
+.lang-switch{display:none;align-items:center;gap:.35rem;margin-left:auto;margin-right:1rem}
+.lang-btn{
+  background:transparent;border:0;padding:.5rem .35rem;min-height:44px;cursor:pointer;
+  font-family:inherit;font-size:.875rem;font-weight:500;letter-spacing:.06em;
+  color:rgba(255,255,255,.6);transition:color .15s ease;
+}
+.lang-btn:hover{color:#fff}
+.lang-btn.is-active{color:#fff;font-weight:700}
+.lang-sep{color:rgba(255,255,255,.35);font-size:.875rem}
+.lang-switch-mobile{
+  display:flex;margin:1.5rem 0 0;padding-top:1rem;border-top:1px solid var(--line);
+}
+.lang-switch-mobile .lang-btn{color:var(--gray-50)}
+.lang-switch-mobile .lang-btn:hover,.lang-switch-mobile .lang-btn.is-active{color:var(--ink)}
+.lang-switch-mobile .lang-sep{color:var(--gray-50)}
+@media (min-width:1024px){.lang-switch:not(.lang-switch-mobile){display:flex}}
+.topbar .topbar-cta-desktop{
+  background:transparent;color:#fff;border:1px solid rgba(255,255,255,.65);
+}
+.topbar .topbar-cta-desktop:hover{background:rgba(255,255,255,.14)}
+.mobile-menu{top:64px}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:64px;
+}
+.logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.logo img{height:38px;width:auto;display:block}
+.foot-brand .logo img{height:34px;filter:brightness(0)}
+
+.nav-desktop{display:none}
+.nav-desktop a{
+  text-decoration:none;font-size:.9375rem;font-weight:500;
+  padding:.5rem .75rem;min-height:44px;display:inline-flex;align-items:center;
+}
+.nav-desktop a:hover{text-decoration:underline;text-underline-offset:4px}
+.topbar-cta-desktop{display:none}
+
+.hamburger{
+  display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;background:none;border:0;cursor:pointer;align-items:center;
+}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:transform .2s ease,opacity .2s ease}
+.hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.is-open span:nth-child(2){opacity:0}
+.hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  position:fixed;inset:64px 0 0 0;background:#fff;z-index:55;
+  transform:translateX(100%);transition:transform .22s ease;
+  overflow-y:auto;padding:1.5rem var(--gutter) 3rem;
+  display:flex;flex-direction:column;gap:.25rem;
+}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a:not(.btn){
+  text-decoration:none;font-size:1.125rem;font-weight:500;
+  padding:.85rem 0;border-bottom:1px solid var(--line);min-height:44px;display:flex;align-items:center;
+}
+.mobile-menu .btn{margin-top:1.25rem}
+body.menu-locked{overflow:hidden}
+
+@media (min-width:1024px){
+  .hamburger,.mobile-menu{display:none}
+  .nav-desktop{display:flex;gap:.25rem}
+  .topbar-cta-desktop{display:inline-flex;padding:.6rem 1.4rem;min-height:44px;font-size:.9375rem}
+}
+
+/* ============ HERO — full-bleed, animated background ============ */
+.hero{
+  position:relative;overflow:hidden;border-bottom:0;
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:flex-end;
+  isolation:isolate;
+}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:#0d1420}
+.hero-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transform:scale(1.06);
+  animation:heroCycle 21s infinite;
+  will-change:opacity,transform;
+}
+.hero-slide:nth-child(1){animation-delay:0s}
+.hero-slide:nth-child(2){animation-delay:7s}
+.hero-slide:nth-child(3){animation-delay:14s}
+@keyframes heroCycle{
+  0%{opacity:0;transform:scale(1.06)}
+  4%{opacity:1}
+  33%{opacity:1}
+  38%{opacity:0}
+  100%{opacity:0;transform:scale(1.13)}
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(8,14,24,.74) 0%,rgba(8,14,24,.32) 40%,rgba(8,14,24,.80) 100%);
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-slide{animation:none;transform:none;opacity:0}
+  .hero-slide:nth-child(1){opacity:1}
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr;width:100%;
+  padding-block:clamp(4rem,13vw,7rem) clamp(2.5rem,7vw,4.5rem);
+}
+.hero-inner{max-width:62rem;min-width:0;color:#fff}
+.hero h1{
+  font-size:clamp(2.2rem,5vw,4.25rem);
+  font-weight:400;letter-spacing:-.025em;line-height:1.1;
+  color:#fff;max-width:33ch;text-wrap:balance;
+}
+.hero-sub{
+  font-size:clamp(1rem,1.5vw,1.125rem);font-weight:400;
+  color:rgba(255,255,255,.82);max-width:46ch;margin-top:1.5rem;
+}
+.hero-cta{display:grid;gap:.75rem;justify-items:start;margin-top:2.25rem}
+.btn-hero{background:#fff;color:var(--ink);padding:.95rem 2.25rem;font-weight:500}
+.btn-hero:hover{background:rgba(255,255,255,.88)}
+.hero .risk-note{color:rgba(255,255,255,.7);margin-top:0}
+
+/* ============ CARD ROWS (IKEA product-row pattern) ============ */
+.row-head{display:grid;gap:.85rem;margin-bottom:2.25rem;justify-items:start}
+.row-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;letter-spacing:-.02em;line-height:1.12}
+.row-head .lede{color:var(--gray-70);max-width:60ch}
+.card-grid{
+  display:grid;grid-template-columns:1fr;gap:0;
+  border-top:1px solid var(--line);
+}
+.card{
+  border-bottom:1px solid var(--line);
+  padding:1.5rem 0;
+  display:grid;gap:.6rem;align-content:start;min-width:0;
+}
+.card .card-tag{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-50)}
+.card-thumb{border-radius:10px;overflow:hidden;aspect-ratio:16/10;margin-bottom:1rem;background:var(--bg-soft)}
+.card-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card h3{font-size:1.35rem;font-weight:400;letter-spacing:-.01em}
+.card p{font-size:.9375rem;color:var(--gray-70)}
+.card .card-num{
+  font-size:2rem;font-weight:900;color:var(--blue);line-height:1;
+}
+@media (min-width:768px){
+  .card-grid{grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:0}
+  .card{border-bottom:0;border-top:0;padding:1.75rem 1.5rem;border-left:1px solid var(--line)}
+  .card:first-child{border-left:0;padding-left:0}
+  .card-grid{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+}
+
+/* Section 2 prose */
+.prose-cols{display:grid;gap:1.25rem;margin-top:2.25rem}
+.prose-cols p{color:var(--gray-70);max-width:62ch}
+.prose-cols p strong{color:var(--ink)}
+@media (min-width:1024px){.prose-cols{grid-template-columns:1fr 1fr;gap:3rem}}
+.soft-cta{margin-top:2rem;display:grid;gap:.35rem}
+.soft-cta span{font-size:.9375rem;color:var(--gray-50)}
+
+/* ============ PROOF STRIP ============ */
+.proof{background:#fff}
+.proof-quote{font-size:clamp(1.05rem,2.1vw,1.5rem);font-weight:500;font-style:italic;color:var(--gray-70);max-width:none;white-space:nowrap;overflow-x:auto;margin-bottom:2.5rem}
+@media (max-width:820px){.proof-quote{white-space:normal}}
+.stat-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
+.stat{
+  background:var(--bg-soft);border-radius:14px;
+  padding:2rem 1.75rem 1.75rem;
+  min-width:0;display:grid;gap:0;align-content:start;
+}
+.stat-icon{width:112px;height:112px;margin-bottom:2rem}
+.stat-icon svg{width:100%;height:100%;display:block}
+.stat-icon svg [stroke]{stroke:var(--blue)}
+.stat-icon .wire{fill:none;stroke:var(--blue);stroke-width:1.4}
+.stat .num{
+  font-size:clamp(2.6rem,7vw,3.75rem);font-weight:400;letter-spacing:-.02em;
+  line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.stat .num .unit{font-size:.42em;font-weight:700;margin-left:.15em}
+.stat .lbl{font-size:.9375rem;color:var(--gray-70);margin-top:.65rem}
+.proof-src{margin-top:2rem;font-size:.9375rem;font-weight:700}
+.proof-src span{font-weight:400;color:var(--gray-50)}
+@media (min-width:768px){
+  .stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* ============ STORY (Section 4) — IKEA two-panel tile ============ */
+.story-body{display:grid;gap:1.1rem}
+.story-body p{color:var(--gray-70);font-size:.9875rem;max-width:66ch}
+.story-body p strong{color:var(--ink)}
+.story-pull{
+  font-size:1.125rem;font-weight:700;color:var(--ink);
+  border-left:4px solid var(--blue);padding-left:1rem;max-width:56ch;
+}
+@media (min-width:1024px){
+}
+
+/* ============ METHOD (Section 5) ============ */
+/* ============ METHOD (Section 5) — bento cards ============ */
+.method{background:var(--bg-tint)}
+.bento{
+  display:grid;grid-template-columns:1fr;gap:1rem;
+}
+.bcard{
+  background:#fff;border-radius:14px;padding:1.75rem;
+  display:flex;flex-direction:column;gap:0;min-width:0;
+  border:1px solid rgba(17,17,17,.05);
+}
+.bcard .b-icon{width:56px;height:56px;margin-bottom:1.25rem}
+.bcard .b-icon svg{width:100%;height:100%;display:block}
+.b-wire{fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bcard h3{font-size:1.5rem;font-weight:400;letter-spacing:-.01em;margin-bottom:.6rem}
+.bcard p{color:var(--gray-70);font-size:.9875rem;max-width:44ch}
+.b-pill{
+  align-self:flex-start;margin-top:1.5rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:48px;min-height:44px;padding:.55rem 1.5rem;
+  border:1px solid var(--ink);border-radius:999px;
+  font-weight:500;font-size:.9375rem;line-height:1;
+}
+.bcard .b-body{flex:1}
+/* blue variant */
+.bcard.is-blue{background:var(--dark);border-color:transparent;color:#fff}
+.bcard.is-blue p{color:rgba(255,255,255,.88)}
+.bcard.is-blue .b-wire{stroke:#fff}
+.bcard.is-blue .b-pill{border-color:rgba(255,255,255,.6);color:#fff}
+/* split card: content + image */
+.bcard.is-split{padding:0;overflow:hidden;display:grid;grid-template-columns:1fr;border:0}
+.bcard.is-split .b-body-wrap{padding:1.75rem;display:flex;flex-direction:column}
+.bcard.is-split .b-media{position:relative;min-height:220px;background:var(--dark)}
+.bcard.is-split .b-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* quote card */
+.bquote{
+  background:var(--dark);color:#fff;border-radius:14px;
+  padding:2rem 1.75rem;display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center;min-width:0;
+}
+.bquote p{font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:500;line-height:1.35;max-width:56ch;text-wrap:balance}
+.bquote .b-orbit{width:min(220px,68vw);justify-self:center}
+.bquote .b-orbit svg{width:100%;height:auto;display:block;overflow:visible}
+/* Animated orbits — each ring turns at its own pace */
+.orbit{transform-origin:110px 110px;animation:orbitSpin linear infinite}
+.orbit-1{animation-duration:26s}
+.orbit-2{animation-duration:19s;animation-direction:reverse}
+.orbit-3{animation-duration:33s}
+.orbit-4{animation-duration:13s;animation-direction:reverse}
+.orbit .node{fill:#fff;stroke:none}
+.orbit-2 .node,.orbit-4 .node{fill:rgba(255,255,255,.55)}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.orbit{animation:none}}
+@media (min-width:768px){
+  .bento{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .b-span2{grid-column:span 2}
+  .b-span3{grid-column:span 3}
+  .bcard{min-height:360px}
+  .bcard.is-split{grid-template-columns:1fr 1fr}
+  .bcard.is-split .b-media{min-height:100%}
+  .bquote{grid-template-columns:minmax(0,2.6fr) minmax(0,.7fr);padding:2.5rem;gap:2.5rem}
+  .bquote .b-orbit{justify-self:end}
+}
+@media (min-width:1024px){
+  .bento{gap:1.25rem}
+  .bcard{padding:2rem;min-height:400px}
+  .bcard.is-split .b-body-wrap{padding:2rem}
+}
+
+/* ============ ABOUT TOBIAS ============ */
+.about-head{display:grid;justify-items:center;text-align:center;gap:1rem;margin-bottom:3rem}
+.about-head h2{
+  font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;
+  letter-spacing:-.02em;line-height:1.12;max-width:26ch;text-wrap:balance;
+}
+.about-lede{color:var(--gray-70);font-size:1.0625rem;max-width:54ch}
+.about-cols{display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:start}
+.about-portrait img{
+  width:100%;height:auto;display:block;
+  background:none;border:0;border-radius:0;box-shadow:none;
+}
+/* Collapsible story */
+.story-more{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .45s ease;
+  position:relative;
+}
+.story-more > *{overflow:hidden}
+.story-more::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:70px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0),var(--bg));
+  pointer-events:none;opacity:1;transition:opacity .3s ease;
+}
+.story-body.is-open .story-more{grid-template-rows:1fr}
+.story-body.is-open .story-more::after{opacity:0}
+.story-toggle{
+  justify-self:start;margin-top:1.25rem;
+  background:transparent;border:1px solid var(--ink);border-radius:999px;
+  padding:.7rem 1.6rem;min-height:44px;cursor:pointer;
+  font-family:inherit;font-size:.9375rem;font-weight:500;color:var(--ink);
+  transition:background .15s ease,color .15s ease,border-color .15s ease;
+}
+.story-toggle:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+@media (prefers-reduced-motion:reduce){.story-more{transition:none}}
+@media (min-width:1024px){
+  .about-cols{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:4rem}
+}
+
+/* ============ HOW I BUILD — tool logo strip ============ */
+.stack .row-head{justify-items:center;text-align:center}
+.stack .row-head h2,
+.stack .row-head .lede{max-width:78ch;margin-inline:auto}
+.stack .row-head .lede + .lede{margin-top:-.25rem}
+.tool-strip{
+  list-style:none;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:2.5rem 3.5rem;
+  margin:3rem auto 0;padding:0;max-width:1080px;
+}
+.tool-strip li{
+  display:flex;align-items:center;justify-content:center;
+  min-width:0;padding:0;
+}
+.tool-strip img{
+  max-height:44px;max-width:160px;width:auto;object-fit:contain;display:block;
+  filter:grayscale(1);opacity:.7;transition:filter .2s ease,opacity .2s ease;
+}
+.tool-strip li:hover img{filter:grayscale(0);opacity:1}
+/* Per-logo optical sizing */
+.tool-strip img[alt="Claude"]{max-height:88px;max-width:none}
+.tool-strip img[alt="ChatGPT"]{max-height:53px}
+.stack-note{
+  margin:2.5rem auto 0;text-align:center;
+  font-size:1.125rem;font-weight:500;color:var(--ink);
+}
+@media (min-width:768px){
+  .tool-strip{gap:3rem 4.5rem;margin-top:3.5rem}
+}
+
+/* ============ WHY NOT CHATGPT (Section 6) ============ */
+.vs .row-head p.sub{font-weight:700;color:var(--ink);font-size:1.0625rem}
+.vs-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.vs-card{
+  background:var(--bg-soft);border-radius:14px;padding:1.75rem;min-width:0;
+  display:flex;flex-direction:column;
+}
+.vs-icon{width:52px;height:52px;margin-bottom:1.25rem}
+.vs-icon svg{width:100%;height:100%;display:block}
+.vs-card h3{font-size:1.35rem;font-weight:400;letter-spacing:-.01em;margin-bottom:.5rem}
+.vs-card p{color:var(--gray-70);font-size:.9375rem}
+@media (min-width:768px){
+  .vs-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+  .vs-card{padding:2rem}
+}
+/* ============ TESTIMONIALS SLIDER ============ */
+.tslider-section{position:relative;overflow:hidden;isolation:isolate;background:var(--dark)}
+.tslider-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center}
+.tslider-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(to bottom,rgba(15,19,26,.42) 0%,rgba(15,19,26,.5) 45%,rgba(15,19,26,.72) 100%)}
+.tslider-section .eyebrow{color:#fff;border-bottom-color:var(--blue)}
+.tslider-viewport{overflow:hidden}
+.tslider-track{
+  display:flex;align-items:flex-start;
+  transition:transform .55s cubic-bezier(.33,1,.68,1);
+}
+.tslide{flex:0 0 100%;min-width:0;padding:1rem 0 0;color:#fff}
+.tslide-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem}
+.tavatar{
+  width:52px;height:52px;border-radius:50%;flex:none;
+  background:var(--blue);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:700;letter-spacing:.02em;
+}
+.tslide figcaption{font-size:1rem;font-weight:500}
+.tslide figcaption span{
+  display:block;font-weight:400;color:rgba(255,255,255,.6);
+  font-size:.9375rem;margin-top:.2rem;
+}
+.tslide blockquote{
+  font-size:clamp(1.1rem,1.9vw,1.55rem);font-weight:400;letter-spacing:-.01em;
+  line-height:1.45;max-width:64ch;
+}
+.tslider-nav{
+  display:flex;align-items:center;gap:1.25rem;margin-top:2.5rem;
+}
+.tarrow{
+  width:48px;height:48px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  font-size:1.1rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s ease,border-color .15s ease;
+}
+.tarrow:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6)}
+.tdots{display:flex;gap:.5rem;flex-wrap:wrap}
+.tdot{
+  width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.3);transition:background .15s ease,transform .15s ease;
+}
+.tdot[aria-selected="true"]{background:var(--blue);transform:scale(1.25)}
+@media (prefers-reduced-motion:reduce){.tslider-track{transition:none}}
+
+/* ============ HOW IT WORKS (Section 7) — hover-reveal image cards ============ */
+.steps{display:grid;grid-template-columns:1fr;gap:1rem}
+.step-row{
+  position:relative;border-radius:14px;overflow:hidden;min-width:0;
+  background:var(--dark);color:#fff;
+}
+.step-thumb{position:absolute;inset:0;display:block;background:var(--dark)}
+.step-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.step-thumb::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(15,19,26,.92) 0%,rgba(15,19,26,.72) 26%,rgba(15,19,26,.12) 58%,rgba(15,19,26,.05) 100%);
+  transition:background .35s ease;
+}
+.step-row:hover .step-thumb::after,
+.step-row:focus-within .step-thumb::after{
+  background:linear-gradient(to top,rgba(15,19,26,.94) 0%,rgba(15,19,26,.88) 42%,rgba(15,19,26,.55) 78%,rgba(15,19,26,.25) 100%);
+}
+.step-copy{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:440px;padding:1.75rem;
+}
+.step-title{display:block}
+.step-row h3{font-size:1.35rem;font-weight:400;display:flex;gap:.6rem;align-items:baseline;line-height:1.25;text-wrap:balance;color:#fff}
+.step-row h3 .n{color:var(--blue);font-weight:900;flex:none}
+.step-row .opt{
+  display:block;font-size:.6875rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:.25rem;
+}
+/* description hidden until hover, slides up, no reserved space */
+.step-reveal{
+  display:grid;grid-template-rows:0fr;
+  opacity:0;transform:translateY(6px);
+  transition:grid-template-rows .4s ease,opacity .35s ease,transform .4s ease;
+}
+.step-reveal > p{
+  overflow:hidden;min-height:0;
+  color:rgba(255,255,255,.85);font-size:.9375rem;line-height:1.6;
+  margin-top:1rem;
+}
+.step-row:hover .step-reveal,
+.step-row:focus-within .step-reveal{
+  grid-template-rows:1fr;opacity:1;transform:translateY(0);
+}
+@media (min-width:640px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1024px){
+  .steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:1.25rem}
+  .step-copy{min-height:480px}
+}
+/* Touch / no-hover: reveal is always shown so nothing is lost */
+@media (hover:none){
+  .step-reveal{grid-template-rows:1fr;opacity:1;transform:none}
+  .step-thumb::after{background:linear-gradient(to top,rgba(15,19,26,.92) 0%,rgba(15,19,26,.8) 45%,rgba(15,19,26,.4) 80%,rgba(15,19,26,.2) 100%)}
+}
+@media (prefers-reduced-motion:reduce){
+  .step-reveal,.step-thumb::after{transition:none}
+}
+
+/* ============ FAQ (Section 8) — IKEA news-card row ============ */
+.faq-cards{--cols:3}
+.faq-cards .card q{font-style:normal;quotes:"“" "”"}
+/* Category tags render as blue pills */
+.faq-cards .card-tag,
+.leak-cards .card-tag{
+  justify-self:start;align-self:start;width:fit-content;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--blue);color:#fff;
+  border-radius:999px;padding:.4rem 1rem;
+  font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  line-height:1;margin-bottom:.35rem;
+}
+
+/* ============ FILTER (Section 9) ============ */
+.filter-grid{display:grid;grid-template-columns:1fr;border:1px solid var(--line)}
+.filter-col{padding:clamp(1.5rem,4vw,2.5rem);min-width:0}
+.filter-col + .filter-col{border-top:1px solid var(--line)}
+.filter-col h3{font-size:1.5rem;font-weight:400;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.badge{width:12px;height:12px;flex:none;display:inline-block}
+.badge.good{background:var(--blue)}
+.badge.bad{background:var(--gray-50)}
+.filter-col ul{list-style:none;display:grid;gap:.85rem}
+.filter-col li{color:var(--gray-70);font-size:.9875rem;padding-left:1.35rem;position:relative}
+.filter-col li::before{content:"›";position:absolute;left:0;color:var(--blue);font-weight:700}
+.filter-col.bad-col li::before{color:var(--gray-50)}
+.filter-intro{margin-bottom:2rem;display:grid;gap:.5rem}
+.filter-intro p{color:var(--gray-70)}
+@media (min-width:768px){
+  .filter-grid{grid-template-columns:1fr 1fr}
+  .filter-col + .filter-col{border-top:0;border-left:1px solid var(--line)}
+}
+
+/* ============ CLOSING (Section 10) — tall image band ============ */
+.closing{
+  position:relative;overflow:hidden;isolation:isolate;
+  min-height:min(82vh,720px);
+  display:flex;align-items:center;
+}
+.closing-bg{
+  position:absolute;inset:0;z-index:-2;background:#0d1420 center/cover no-repeat;
+}
+.closing-scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(to right, rgba(8,14,24,.82) 0%, rgba(8,14,24,.55) 34%, rgba(8,14,24,.12) 62%, rgba(8,14,24,0) 100%),
+    linear-gradient(to bottom, rgba(8,14,24,0) 0%, rgba(8,14,24,.10) 55%, rgba(8,14,24,.45) 100%);
+}
+.closing .section-inner{width:100%}
+.closing h2{
+  font-size:clamp(2.2rem,5vw,4.25rem);
+  font-weight:400;letter-spacing:-.025em;line-height:1.1;
+  color:#fff;max-width:16ch;text-wrap:balance;
+}
+.closing p{
+  color:rgba(255,255,255,.92);max-width:52ch;margin-top:1.25rem;
+  font-size:clamp(1rem,1.5vw,1.125rem);opacity:1;
+}
+.closing .hero-cta{margin-top:2.25rem}
+.closing .risk-note{color:rgba(255,255,255,.7);opacity:1;margin-top:0}
+
+/* ============ FOOTER ============ */
+footer{background:var(--bg-soft);border-top:1px solid var(--line)}
+.foot-grid{
+  display:grid;grid-template-columns:1fr;gap:2rem;
+  padding-block:clamp(2.5rem,6vw,4rem);
+}
+.foot-col h4{font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-50);margin-bottom:.85rem}
+.foot-col ul{list-style:none;display:grid;gap:.4rem}
+.foot-col a{font-size:.9375rem;text-decoration:none;color:var(--gray-70);min-height:32px;display:inline-flex;align-items:center}
+.foot-col a:hover{text-decoration:underline}
+.foot-col p{font-size:.9375rem;color:var(--gray-70)}
+.foot-brand{display:grid;gap:.5rem;align-content:start}
+.foot-brand .logo{font-size:1.1rem}
+.foot-brand .tagline{font-size:.9375rem;color:var(--gray-50);font-style:italic}
+.foot-bottom{
+  border-top:1px solid var(--line);
+  padding-block:1.5rem;
+  display:flex;flex-direction:column;gap:.5rem;
+  font-size:.8125rem;color:var(--gray-50);
+}
+.foot-bottom a{color:var(--gray-50)}
+@media (min-width:768px){
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1024px){
+  .foot-grid{grid-template-columns:1.4fr repeat(4,minmax(0,1fr))}
+  .foot-bottom{flex-direction:row;justify-content:space-between;align-items:center}
+}
+/* ============ SMALL-SCREEN REFINEMENTS ============ */
+@media (max-width:600px){
+  /* Give tall image sections a sane floor on short phones */
+  .step-copy{min-height:380px}
+  .bcard{min-height:0}
+  /* Hero/closing CTA go full-width for easy thumb tapping */
+  .hero .btn-hero,.closing .btn-hero{width:100%}
+  /* Diagnose split image gets a bit more height when stacked */
+  .bcard.is-split .b-media{min-height:200px}
+  /* Testimonial quote breathing room */
+  .tslide blockquote{font-size:1.15rem;line-height:1.5}
+  /* Tool logos a touch smaller so the row wraps cleanly */
+  .tool-strip{gap:1.75rem 2.5rem}
+  .tool-strip img{max-height:36px}
+  .tool-strip img[alt="Claude"]{max-height:64px}
+  .tool-strip img[alt="ChatGPT"]{max-height:44px}
+  /* Prevent any wide number from forcing overflow */
+  .stat .num{font-size:clamp(2.4rem,12vw,3rem)}
+}
+@media (max-width:380px){
+  .hero h1{font-size:2rem}
+  .row-head h2,.about-head h2{font-size:1.8rem}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="topbar">
+  <div class="wrap-wide topbar-inner">
+    <a class="logo" href="#top">
+      <img src="https://cdn.katalyst-crm.com/t1/logoo.png" alt="Dörröppnaren — The Door Opener">
+    </a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="#top">Home</a>
+      <a href="#method">The Method</a>
+      <a href="#services">Services</a>
+      <a href="#questions">Questions</a>
+      <a href="#franchise">Franchise</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="sv" aria-pressed="false">SV</button>
+    </div>
+    <a class="btn btn-primary topbar-cta-desktop" href="#contact">Book the Opening Call</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#top">Home</a>
+    <a href="#method">The Method</a>
+    <a href="#services">Services</a>
+    <a href="#questions">Questions</a>
+    <a href="#franchise">Franchise</a>
+    <a href="#contact">Contact</a>
+    <div class="lang-switch lang-switch-mobile" role="group" aria-label="Language">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="sv" aria-pressed="false">SV</button>
+    </div>
+    <a class="btn btn-primary" href="#contact">Book the Opening Call</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ SECTION 1 | HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-slide" data-slide="0" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_082410_a8dcb597-0214-48c2-bc53-bbc655b887df.png')"></div>
+    <div class="hero-slide" data-slide="1" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_082410_0208ccdc-a5a1-49fe-a755-f73b3910ce95.png')"></div>
+    <div class="hero-slide" data-slide="2" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_082410_b2ba9bb9-b97a-4e6c-a986-f293ee2cc30e.png')"></div>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap-wide hero-grid">
+    <div class="hero-inner">
+      <h1>Your business runs through you right now. It doesn't have to.</h1>
+      <p class="hero-sub">You've got 50 to 150 people. Every approval and every exception still comes back to you.</p>
+      <div class="hero-cta">
+        <a class="btn btn-hero" href="#contact">Book the Opening Call</a>
+        <p class="risk-note">Free. 60 minutes. No cost if the 10 wasted hours aren't there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 | WHERE THE HOURS ACTUALLY GO ============ -->
+<section class="section" id="services">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">Where the Hours Actually Go</span>
+      <h2>Why does everything still have to go through you?</h2>
+      <p class="lede">You already know the answer. You just haven't had time to fix it.</p>
+    </div>
+    <div class="card-grid leak-cards" style="--cols:3">
+      <div class="card">
+        <div class="card-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260805_060053_8160819c-cabe-48ea-947b-93230b366ad9.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+        <span class="card-tag">Leak 01</span>
+        <h3>Orders.</h3>
+        <p>Opened and copied into the ERP by hand. Fifteen times a day, sometimes more.</p>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260805_060053_d21c35c3-034e-4bca-8091-63cc265849ed.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+        <span class="card-tag">Leak 02</span>
+        <h3>Email.</h3>
+        <p>The same message answered twice, because nobody split the inboxes.</p>
+      </div>
+      <div class="card">
+        <div class="card-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260805_060053_500ab5de-f052-4b12-8d3b-0198a92baca1.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+        <span class="card-tag">Leak 03</span>
+        <h3>Reclaims.</h3>
+        <p>Once a year, everyone in a room, searching old threads for every product return from the last twelve months.</p>
+      </div>
+    </div>
+    <div class="prose-cols">
+      <p>You started this business to build something. Somewhere along the way it became a job where you're on call for problems nobody else can solve, because nobody else knows where all the pieces are.</p>
+      <p>You've probably tried something already. <strong>ChatGPT is open in another tab right now.</strong> It answers questions. It doesn't run your order desk while you're three weeks into an actual vacation.</p>
+      <p>The business isn't the problem. It's already profitable, already busy, already proof that you know what you're doing. The problem is narrower than that: <strong>it only runs because you're inside it, every day, holding the pieces together by hand.</strong></p>
+    </div>
+    <div class="soft-cta">
+      <span>Not ready to talk yet?</span>
+      <a class="arrow-link blue" href="#proof">See the actual numbers from one real client first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 | PROOF BEFORE PROMISES ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap section-inner">
+    <span class="eyebrow" style="margin-bottom:1rem">Proof Before Promises</span>
+    <p class="proof-quote">“Without data, you're just another person with an opinion.”</p>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire" stroke-linecap="round">
+              <g transform="rotate(-34 60 60)">
+                <ellipse cx="44.0" cy="60" rx="19" ry="30"/>
+                <ellipse cx="48.2" cy="60" rx="19" ry="30"/>
+                <ellipse cx="52.4" cy="60" rx="19" ry="30"/>
+                <ellipse cx="56.6" cy="60" rx="19" ry="30"/>
+                <ellipse cx="60.8" cy="60" rx="19" ry="30"/>
+                <ellipse cx="65.0" cy="60" rx="19" ry="30"/>
+                <ellipse cx="69.2" cy="60" rx="19" ry="30"/>
+                <ellipse cx="73.4" cy="60" rx="19" ry="30"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="num" data-count="8000" data-format="comma">0</div>
+        <div class="lbl">orders a year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire" stroke-linecap="round">
+              <line x1="69.0" y1="60.0" x2="106.0" y2="60.0"/>
+              <line x1="68.8" y1="61.9" x2="105.0" y2="69.6"/>
+              <line x1="68.2" y1="63.7" x2="102.0" y2="78.7"/>
+              <line x1="67.3" y1="65.3" x2="97.2" y2="87.0"/>
+              <line x1="66.0" y1="66.7" x2="90.8" y2="94.2"/>
+              <line x1="64.5" y1="67.8" x2="83.0" y2="99.8"/>
+              <line x1="62.8" y1="68.6" x2="74.2" y2="103.7"/>
+              <line x1="60.9" y1="69.0" x2="64.8" y2="105.7"/>
+              <line x1="59.1" y1="69.0" x2="55.2" y2="105.7"/>
+              <line x1="57.2" y1="68.6" x2="45.8" y2="103.7"/>
+              <line x1="55.5" y1="67.8" x2="37.0" y2="99.8"/>
+              <line x1="54.0" y1="66.7" x2="29.2" y2="94.2"/>
+              <line x1="52.7" y1="65.3" x2="22.8" y2="87.0"/>
+              <line x1="51.8" y1="63.7" x2="18.0" y2="78.7"/>
+              <line x1="51.2" y1="61.9" x2="15.0" y2="69.6"/>
+              <line x1="51.0" y1="60.0" x2="14.0" y2="60.0"/>
+              <line x1="51.2" y1="58.1" x2="15.0" y2="50.4"/>
+              <line x1="51.8" y1="56.3" x2="18.0" y2="41.3"/>
+              <line x1="52.7" y1="54.7" x2="22.8" y2="33.0"/>
+              <line x1="54.0" y1="53.3" x2="29.2" y2="25.8"/>
+              <line x1="55.5" y1="52.2" x2="37.0" y2="20.2"/>
+              <line x1="57.2" y1="51.4" x2="45.8" y2="16.3"/>
+              <line x1="59.1" y1="51.0" x2="55.2" y2="14.3"/>
+              <line x1="60.9" y1="51.0" x2="64.8" y2="14.3"/>
+              <line x1="62.8" y1="51.4" x2="74.2" y2="16.3"/>
+              <line x1="64.5" y1="52.2" x2="83.0" y2="20.2"/>
+              <line x1="66.0" y1="53.3" x2="90.8" y2="25.8"/>
+              <line x1="67.3" y1="54.7" x2="97.2" y2="33.0"/>
+              <line x1="68.2" y1="56.3" x2="102.0" y2="41.3"/>
+              <line x1="68.8" y1="58.1" x2="105.0" y2="50.4"/>
+            </g>
+            <circle cx="60" cy="60" r="4.5" fill="#E8622C"/>
+          </svg>
+        </div>
+        <div class="num" data-count="5">0</div>
+        <div class="lbl">automated workflows</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire">
+              <circle cx="60" cy="60" r="42"/>
+              <ellipse cx="60" cy="60" rx="8" ry="42"/>
+              <ellipse cx="60" cy="60" rx="20" ry="42"/>
+              <ellipse cx="60" cy="60" rx="32" ry="42"/>
+              <line x1="60" y1="18" x2="60" y2="102"/>
+            </g>
+          </svg>
+        </div>
+        <div class="num"><span data-count="13">0</span><span class="unit">hrs</span></div>
+        <div class="lbl">a week back</div>
+      </div>
+    </div>
+    <p class="proof-src">Tradingbox / Solstickan Design. <span>Already running, not projected.</span></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 | ABOUT TOBIAS / THE DOOR I CLOSED ============ -->
+<section class="section about" id="franchise">
+  <div class="wrap section-inner">
+    <div class="about-head">
+      <span class="eyebrow">About Tobias</span>
+      <h2>You already know what takes the most time. I build what removes it.</h2>
+      <p class="about-lede">Dörröppnaren isn't a metaphor I picked for a website. It's what I actually did.</p>
+    </div>
+    <div class="about-cols">
+      <div class="about-portrait">
+        <img src="https://cdn.katalyst-crm.com/t1/tobias.png" alt="Tobias Ahlin" loading="lazy">
+      </div>
+      <div class="story-body">
+        <p>Twenty years ago I started selling to the world's most demanding data companies. Betting operators, gaming platforms, banks. In the last ten years of it alone, I sold over 30 million dollars of the most expensive software there is and made President's Club five times. At Snowflake, my last stop, I watched the company grow from 350 million dollars to 2.6 billion while I was there.</p>
+        <div class="story-more" id="storyMore">
+        <p>Somewhere in there my body started failing before I noticed. Bad kidneys, a bad liver, high cholesterol. All from stress. In the same stretch of years I lost nine people close to me to cancer.</p>
+        <p>My wife's youngest sister. A colleague I'd worked beside for years. My stepbrother.</p>
+        <p><strong>Nine people. I had the money to stop. I didn't know how much time I had left to use it.</strong></p>
+        <p>Behind the numbers, the picture was different. Constant pressure, never enough, and children growing up without me noticing. A blood test at 42 showed what my body thought of the pace: high cholesterol, poor kidney and liver values.</p>
+        <p>So in April 2023 I walked away. Not fired, not burned out into a settlement. I chose it, on my own terms, at 42.</p>
+        <p>The name of this company is Dörröppnaren. The Door Opener. I closed one very large door on my old life, and I've been opening smaller, better ones ever since. Now I open them for other people too.</p>
+        <p class="story-pull">I don't sell tools. I build the operational system that lets an owner-led company grow without the owner being the bottleneck. That's the whole job.</p>
+        </div>
+        <button class="story-toggle" id="storyToggle" aria-expanded="false" aria-controls="storyMore">Read more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 | THE DÖRRÖPPNAREN METHOD ============ -->
+<section class="section method" id="method">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">Five steps</span>
+      <h2>The Dörröppnaren Method</h2>
+      <p class="lede">Five steps. Nothing gets built before it's measured.</p>
+    </div>
+
+    <div class="bento">
+
+      <!-- 1 — blue split card with image -->
+      <article class="bcard is-blue is-split b-span2">
+        <div class="b-body-wrap">
+          <div class="b-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <g class="b-wire">
+                <circle cx="29" cy="29" r="19"/>
+                <circle cx="29" cy="29" r="11"/>
+                <line x1="29" y1="6" x2="29" y2="14"/>
+                <line x1="29" y1="44" x2="29" y2="52"/>
+                <line x1="6" y1="29" x2="14" y2="29"/>
+                <line x1="44" y1="29" x2="52" y2="29"/>
+                <line x1="43" y1="43" x2="57" y2="57"/>
+              </g>
+            </svg>
+          </div>
+          <div class="b-body">
+            <h3>Diagnose.</h3>
+            <p>A free 60 minute call, just enough to know if there's real time to recover here. Skip this and you're guessing at the problem instead of measuring it.</p>
+          </div>
+          <span class="b-pill">1</span>
+        </div>
+        <div class="b-media">
+          <img src="https://cdn.katalyst-crm.com/t1/pomelli-image%20(3).png" alt="" loading="lazy" onerror="this.style.display='none'">
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <path d="M7 16 L23 9 L41 18 L57 11 L57 48 L41 55 L23 46 L7 53 Z"/>
+              <line x1="23" y1="9" x2="23" y2="46"/>
+              <line x1="41" y1="18" x2="41" y2="55"/>
+              <path d="M16 44 C24 30, 34 36, 44 22" stroke-dasharray="3 4"/>
+              <circle cx="16" cy="44" r="3.5"/>
+              <circle cx="44" cy="22" r="3.5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Map.</h3>
+          <p>I write up exactly where the hours and money are leaking: which task, how often, what it costs you across a year.</p>
+        </div>
+        <span class="b-pill">2</span>
+      </article>
+
+      <!-- 3 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <line x1="8" y1="54" x2="56" y2="54"/>
+              <rect x="10" y="38" width="11" height="16"/>
+              <rect x="26" y="26" width="11" height="28"/>
+              <rect x="42" y="12" width="11" height="42"/>
+              <path d="M10 30 L26 20 L42 8"/>
+              <circle cx="10" cy="30" r="2.5"/>
+              <circle cx="26" cy="20" r="2.5"/>
+              <circle cx="42" cy="8" r="2.5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>ROI Plan.</h3>
+          <p>A short, ranked list. Build this first, because it pays for itself fastest. Build in the wrong order and the budget goes to the least valuable fix.</p>
+        </div>
+        <span class="b-pill">3</span>
+      </article>
+
+      <!-- 4 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <rect x="8" y="34" width="20" height="20"/>
+              <rect x="32" y="34" width="20" height="20"/>
+              <rect x="20" y="10" width="20" height="20"/>
+              <line x1="18" y1="34" x2="18" y2="30"/>
+              <line x1="42" y1="34" x2="42" y2="30"/>
+              <line x1="18" y1="30" x2="42" y2="30"/>
+              <line x1="30" y1="30" x2="30" y2="30"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Build.</h3>
+          <p>The automation gets built and tested against how your business actually works, not a generic template. Most builds take days, not months.</p>
+        </div>
+        <span class="b-pill">4</span>
+      </article>
+
+      <!-- 5 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <circle cx="18" cy="24" r="9"/>
+              <path d="M18 33 L18 48"/>
+              <path d="M11 41 L18 41"/>
+              <path d="M11 48 L18 48"/>
+              <path d="M30 28 L52 28"/>
+              <path d="M45 21 L52 28 L45 35"/>
+              <circle cx="18" cy="24" r="3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Handover.</h3>
+          <p>You own every licence. Everything is documented and tested before I step back. The system doesn't depend on me any more than it should depend on you.</p>
+        </div>
+        <span class="b-pill">5</span>
+      </article>
+
+      <!-- quote card -->
+      <aside class="bquote b-span3">
+        <p>“I already have a built-in library of what the next problem could be, based on the verticals I've studied.”</p>
+        <div class="b-orbit" aria-hidden="true">
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <g class="orbit orbit-1">
+                <circle cx="110" cy="110" r="86"/>
+                <circle class="node" cx="196" cy="110" r="5.5"/>
+              </g>
+              <g class="orbit orbit-2">
+                <ellipse cx="110" cy="110" rx="86" ry="58"/>
+                <circle class="node" cx="24" cy="110" r="5.5"/>
+              </g>
+              <g class="orbit orbit-3">
+                <ellipse cx="110" cy="110" rx="58" ry="86"/>
+                <circle class="node" cx="110" cy="24" r="5.5"/>
+              </g>
+              <g class="orbit orbit-4">
+                <circle cx="110" cy="110" r="34"/>
+                <circle class="node" cx="144" cy="110" r="5.5"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5B | HOW I BUILD ============ -->
+<section class="section stack">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">How I Build</span>
+      <h2>I don't build with homemade solutions.</h2>
+      <p class="lede">I use the same infrastructure the most effective operational teams in Europe are working with today.</p>
+      <p class="lede">That means the system is stable from day one. And it means you own it when we're done.</p>
+    </div>
+    <ul class="tool-strip">
+      <li><img src="https://cdn.katalyst-crm.com/t1/indir%20(11).png" alt="n8n" loading="lazy"></li>
+      <li><img src="https://cdn.katalyst-crm.com/t1/indir%20(12).png" alt="Notion" loading="lazy"></li>
+      <li><img src="https://cdn.katalyst-crm.com/t1/claude-logo-png_seeklogo-554540.png" alt="Claude" loading="lazy"></li>
+      <li><img src="https://cdn.katalyst-crm.com/t1/Google-Gemini-Logo.png" alt="Gemini" loading="lazy"></li>
+      <li><img src="https://cdn.katalyst-crm.com/t1/indir%20(14).png" alt="ChatGPT" loading="lazy"></li>
+    </ul>
+    <p class="stack-note">No lock-ins. No proprietary code. No surprises.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 | WHY NOT JUST CHATGPT ============ -->
+<section class="section vs">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <h2>Why Not Just ChatGPT?</h2>
+      <p class="sub">Because a chatbot answers questions. It doesn't run your order desk.</p>
+    </div>
+    <div class="vs-grid">
+      <article class="vs-card">
+        <div class="vs-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <circle cx="28" cy="28" r="20"/>
+              <path d="M28 15 L28 28 L37 34"/>
+              <path d="M28 8 L28 4"/><path d="M48 28 L52 28"/>
+              <path d="M28 48 L28 52"/><path d="M8 28 L4 28"/>
+            </g>
+          </svg>
+        </div>
+        <h3>Doing nothing.</h3>
+        <p>Costs you the same 60 hour weeks you're already working, and caps how big this business can get.</p>
+      </article>
+      <article class="vs-card">
+        <div class="vs-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <rect x="6" y="20" width="18" height="30"/>
+              <rect x="24" y="8" width="14" height="42"/>
+              <rect x="38" y="26" width="12" height="24"/>
+              <line x1="4" y1="50" x2="52" y2="50"/>
+              <line x1="11" y1="28" x2="19" y2="28"/><line x1="11" y1="37" x2="19" y2="37"/>
+              <line x1="28" y1="17" x2="34" y2="17"/><line x1="28" y1="27" x2="34" y2="27"/>
+              <line x1="28" y1="37" x2="34" y2="37"/>
+              <line x1="42" y1="34" x2="46" y2="34"/><line x1="42" y1="42" x2="46" y2="42"/>
+            </g>
+          </svg>
+        </div>
+        <h3>A Stockholm consultancy.</h3>
+        <p>Sells digital transformation at an hourly rate, in language built for a boardroom you don't sit in.</p>
+      </article>
+      <article class="vs-card">
+        <div class="vs-icon" aria-hidden="true">
+          <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire">
+              <path d="M8 12 H48 A4 4 0 0 1 52 16 V36 A4 4 0 0 1 48 40 H24 L14 49 V40 H8 A4 4 0 0 1 4 36 V16 A4 4 0 0 1 8 12 Z"/>
+              <line x1="14" y1="22" x2="42" y2="22"/>
+              <line x1="14" y1="30" x2="34" y2="30"/>
+            </g>
+          </svg>
+        </div>
+        <h3>A ChatGPT subscription.</h3>
+        <p>Answers questions well. It doesn't sort your inbox, crawl your orders, or keep running on Monday morning whether you're there or not.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6B | TESTIMONIALS SLIDER ============ -->
+<section class="section tslider-section">
+  <div class="tslider-bg" aria-hidden="true" style="background-image:url('https://cdn.katalyst-crm.com/t1/foggy-seashore-with-salmon-farms-north-norway-close-nordkap.jpg')"></div>
+  <div class="tslider-scrim" aria-hidden="true"></div>
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">What they say</span>
+    </div>
+    <div class="tslider" id="tslider">
+      <div class="tslider-viewport">
+        <div class="tslider-track">
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">PM</span>
+              <figcaption>Paul Maielli <span>VD, Solstickan Design</span></figcaption>
+            </div>
+            <blockquote>Tobias understood how we work, finished the build in a few days, and didn't overcomplicate it. Great knowledge and easy to work with.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">AÖ</span>
+              <figcaption>Anna Östman Kähler <span>Account Based Marketing Manager at Snowflake</span></figcaption>
+            </div>
+            <blockquote>I had the great opportunity to work alongside Tobias for 2 Years at Snowflake. As a marketer, Tobias has been one of the best sales person to collaborate with - delivering best in class communication, understanding the value between marketing and sales and always brining new ideas to the table to take the marketing and sales strategy to the next level. A true team-player who also always brings amazing energy!!</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">PE</span>
+              <figcaption>Per Enell <span>Snowflake | Mobilizing the World's Data</span></figcaption>
+            </div>
+            <blockquote>I've had the pleasure to work with Tobias for a couple of years. Throughout these years, he has been a very appreciated both internally but also externally. He is really great when it comes to managing and delivering value to his customers, the partner ecosystem and his colleagues internally!!</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">WT</span>
+              <figcaption>Will Tompkins <span>Insights Lead at Spotify</span></figcaption>
+            </div>
+            <blockquote>Tobias' approachable character and infectious enthusiasm were a great mix as I joined my new organisation. Always ready to support and suggest got up to speed with new (new to me!) technologies quickly and efficiently..</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">MZ</span>
+              <figcaption>Micheal Zamayeri <span>Head of Business Intelligence</span></figcaption>
+            </div>
+            <blockquote>Tobias is an excellent professional that dedicates a lot of energy and passion into his work. We had regularly for a year been having meetings on how to improve, innovate and create a stronger collaboration using Snowflake and Tobias continuously provided all the resources needed for us to take our environment to the next stage. It's truly been a pleasure working with Tobias and he's got my strongest recommendations.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">PS</span>
+              <figcaption>Philip Stenholm <span>Snowflake</span></figcaption>
+            </div>
+            <blockquote>Tobias has a wonderful personality in combination with great work ethics and strong champion building capabilities. Tobias and I worked together over multiple years and I highly valued our partnership and relationship. Strong recommendation.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">CG</span>
+              <figcaption>Chris Gustafsson <span>Data Warehouse Engineer at Vend</span></figcaption>
+            </div>
+            <blockquote>I wholeheartedly recommend Tobias for his outstanding support in his previous capacity as our main contact for Snowflake-related matters. His dedication to ensuring our success and his exceptional interpersonal skills have consistently set him apart. His commitment and expertise make him an invaluable professional resource, and I am confident he will excel in any new role he undertakes.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">CB</span>
+              <figcaption>Catalin Baciu <span>Enterprise Data Architect at Betsson Group</span></figcaption>
+            </div>
+            <blockquote>I have had the pleasure of working with Tobias for 2+ years while introducing Snowflake at BetssonGroup and I can say with absolute certainty that he is the best Account Executive I worked with in my career. He was invested in our success and did his utmost to make the transition as smooth as possible for us. I appreciate his honesty and knowledge and I would love to work with him again on future projects.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">HG</span>
+              <figcaption>Harald Grant <span>Data Scientist</span></figcaption>
+            </div>
+            <blockquote>Working with Tobias at Snowflake has been fantastic. He's helpful, solution-oriented and pragmatic. On top of that, a genuinely nice guy with great energy and interesting ideas!</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">LN</span>
+              <figcaption>Love Nelson <span>Securing everything you build and run in the cloud @ Wiz</span></figcaption>
+            </div>
+            <blockquote>I had the pleasure of working with Tobias at Snowflake, a well rounded individual and fantastic asset to any sales driven organisation. In Tobias you will find a hard working, dedicated and driven employee whom succeeds time and time again in building long lasting relationships with his clients.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">MC</span>
+              <figcaption>Marvin Corrado <span>Engineering manager at Betsson Group</span></figcaption>
+            </div>
+            <blockquote>I worked with Tobias when he was Betsson's Snowflake account manager. He was always very professional and ready to help. It was a pleasure getting to know him and working with him!</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">VN</span>
+              <figcaption>Viktor Norell <span>System Owner/ Platform Administrator</span></figcaption>
+            </div>
+            <blockquote>Tobias was our (Schibsted) point of contact in Snowflake. Lovely person to deal with both in meetings and on the rare dinner with Snowflake. Always helpful, detail and solutions oriented. I am happy to vouch for Tobias that he would be a driven, smart and charming addition to any team</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">LK</span>
+              <figcaption>Ludwig Krokstedt <span>Director of Data</span></figcaption>
+            </div>
+            <blockquote>Tobias was our point of contact for Snowflake. Always solution oriented and service minded. A pleasure to work with.</blockquote>
+          </figure>
+          <figure class="tslide">
+            <div class="tslide-head">
+              <span class="tavatar" aria-hidden="true">MF</span>
+              <figcaption>Mick Flynn <span>Founder/ CEO of Flynn Consulting AB</span></figcaption>
+            </div>
+            <blockquote>Tobias has been our Snowflake customer contact for over two years. I have always found him to be proactive and eager to help our organisation, as well as being a really nice and generous person to deal with.</blockquote>
+          </figure>
+        </div>
+      </div>
+      <div class="tslider-nav">
+        <button class="tarrow" data-dir="-1" aria-label="Previous testimonial">←</button>
+        <div class="tdots" role="tablist"></div>
+        <button class="tarrow" data-dir="1" aria-label="Next testimonial">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 7 | HOW THIS ACTUALLY WORKS ============ -->
+<section class="section">
+  <div class="wrap-wide section-inner">
+    <div class="row-head">
+      <h2>How This Actually Works</h2>
+      <p class="lede">No jargon. You'll know by the end of the free call if there's anything worth building.</p>
+    </div>
+    <div class="steps">
+      <article class="step-row">
+          <span class="step-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_113540_99c5ca23-31fc-4435-844e-0681dd79712a.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></span>
+          <div class="step-copy">
+            <span class="step-title"><h3><span class="n">1.</span> The Opening Call</h3></span>
+            <div class="step-reveal"><p>Free, 60 minutes, online or in person. I ask what's eating your week and do a rough check on whether there's real time to recover. No pitch.</p></div>
+          </div>
+        </article>
+      <article class="step-row">
+          <span class="step-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_113958_da931687-3921-497f-a2e7-3da8436694cb.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></span>
+          <div class="step-copy">
+            <span class="step-title"><h3><span class="n">2.</span> The Operational Freedom Plan</h3></span>
+            <div class="step-reveal"><p>A written map of your bottlenecks, what they cost you per year, and a prioritized build recommendation. If I can't find at least 10 hours a week worth automating, this costs you nothing.</p></div>
+          </div>
+        </article>
+      <article class="step-row">
+          <span class="step-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_113540_ebc9a039-0a5c-4332-ad5a-49ce4345e1a6.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></span>
+          <div class="step-copy">
+            <span class="step-title"><h3><span class="n">3.</span> The Operational System Build</h3></span>
+            <div class="step-reveal"><p>I build, test, and document the automation itself, checked against how your business runs before anything goes live. Most builds land in days.</p></div>
+          </div>
+        </article>
+      <article class="step-row">
+          <span class="step-thumb"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_113540_21a85269-fcbd-470a-9b58-86dddcaa781f.png" alt="" loading="lazy" onerror="this.parentNode.style.display='none'"></span>
+          <div class="step-copy">
+            <span class="step-title"><h3><span class="n">4.</span> Local System Partner</h3><span class="opt">(optional)</span></span>
+            <div class="step-reveal"><p>Ongoing improvements, support, new automations as they come up, a quarterly check in. Not required.</p></div>
+          </div>
+        </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 8 | THE QUESTIONS UNDER THE QUESTION ============ -->
+<section class="section" id="questions">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <h2>The Questions Under the Question</h2>
+      <p class="lede">The doubts you're not saying out loud on the call.</p>
+    </div>
+    <div class="card-grid faq-cards">
+      <div class="card">
+        <span class="card-tag">Risk</span>
+        <h3>“Is this just another consultant wasting my time?”</h3>
+        <p>If the diagnostic doesn't find at least 10 hours a week worth of manual work to automate, it's free and I walk away.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Belief</span>
+        <h3>“I don't understand AI, it's too complicated.”</h3>
+        <p>You don't need to. I translate it into hours and money, not technology.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Risk</span>
+        <h3>“Will I be locked into your software forever?”</h3>
+        <p>No. At handover, you own every licence and every piece of documentation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 9 | THE ANTI-STOCKHOLM FILTER ============ -->
+<section class="section">
+  <div class="wrap section-inner">
+    <div class="filter-intro">
+      <h2 style="font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;letter-spacing:-.02em;line-height:1.12">I'm not a Stockholm company. That's the point.</h2>
+      <p><strong>If that sounds like a downside, this isn't for you.</strong></p>
+      <p>Companies in central Stockholm get called by every consultancy in the country. Companies forty-five minutes outside it mostly get called by no one, even doing the same revenue. I spent ten years selling to the first kind of company. I'd rather work with my neighbors now.</p>
+    </div>
+    <div class="filter-grid">
+      <div class="filter-col">
+        <h3><span class="badge good" aria-hidden="true"></span>Good match:</h3>
+        <ul>
+          <li>Your company does 30 to 300 million SEK in revenue in or near Täby.</li>
+          <li>You're still the one every approval and every exception comes back to.</li>
+          <li>You want proof it works before you commit a single krona.</li>
+        </ul>
+      </div>
+      <div class="filter-col bad-col">
+        <h3><span class="badge bad" aria-hidden="true"></span>Not a match:</h3>
+        <ul>
+          <li>You want a logo you recognize from a billboard, not a person who answers the phone.</li>
+          <li>You're hoping to hire your way out of this instead of fixing it.</li>
+          <li>You'd rather keep guessing at where the hours go than spend 60 minutes finding out.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 10 | THE NEXT DOOR ============ -->
+<section class="closing" id="contact">
+  <div class="closing-bg" aria-hidden="true" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260804_084106_09a14b9f-cb69-4799-84b7-0e7601ef34b0.png')"></div>
+  <div class="closing-scrim" aria-hidden="true"></div>
+  <div class="wrap-wide section-inner">
+    <h2>Open the Next Door.</h2>
+    <p>Your business already proved it works. What's left is proving it doesn't need you standing inside it every hour of every day.</p>
+    <div class="hero-cta">
+      <a class="btn btn-hero" href="mailto:tobbe@xn--drrppnaren-ecbc.se">Book the Opening Call</a>
+      <p class="risk-note">No pitch. No cost if I'm wrong.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col foot-brand">
+      <a class="logo" href="#top">
+        <img src="https://cdn.katalyst-crm.com/t1/logoo.png" alt="Dörröppnaren — The Door Opener">
+      </a>
+      <p class="tagline">One door closed. A few new ones opened.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:tobbe@xn--drrppnaren-ecbc.se">tobbe@dörröppnaren.se</a></li>
+        <li><a href="#contact">[placeholder: phone number]</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Location</h4>
+      <p>Täby, Stockholm North, Sweden<br>[placeholder: street address]</p>
+    </div>
+    <div class="foot-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/tobiasahlin/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Site Map</h4>
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#method">The Method</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#questions">Questions</a></li>
+        <li><a href="#franchise">Franchise</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 [placeholder: legal entity name]. All rights reserved.</span>
+    <a href="https://docs.google.com/document/d/16aY4UWW5zMtZQZR2xDeRI2Zmax4tFqBbCObAUoRfyko/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Cookie and Integritetspolicy</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  var mq = window.matchMedia('(min-width: 1024px)');
+
+  function setOpen(open){
+    menu.classList.toggle('open', open);
+    btn.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-locked', open);
+  }
+
+  btn.addEventListener('click', function(){
+    setOpen(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ setOpen(false); });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function(e){
+    if(menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)){
+      setOpen(false);
+    }
+  });
+  function onMQ(e){ if(e.matches) setOpen(false); }
+  if(mq.addEventListener){ mq.addEventListener('change', onMQ); } else { mq.addListener(onMQ); }
+
+  /* ---- Count-up on scroll ---- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var counters = [].slice.call(document.querySelectorAll('[data-count]'));
+
+  function fmt(n, comma){
+    n = Math.round(n);
+    return comma ? n.toLocaleString('en-US') : String(n);
+  }
+  function run(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var comma = el.getAttribute('data-format') === 'comma';
+    if(reduce){ el.textContent = fmt(target, comma); return; }
+    var dur = 1400, start = null;
+    function ease(t){ return 1 - Math.pow(1 - t, 3); } /* easeOutCubic */
+    function step(ts){
+      if(start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = fmt(target * ease(p), comma);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target, comma);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if('IntersectionObserver' in window && counters.length){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ run(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function(c){ io.observe(c); });
+  } else {
+    counters.forEach(run);
+  }
+  /* ---- Testimonials slider ---- */
+  var slider = document.getElementById('tslider');
+  if(slider){
+    var track = slider.querySelector('.tslider-track');
+    var slides = [].slice.call(track.children);
+    var dotsWrap = slider.querySelector('.tdots');
+    var idx = 0, timer = null;
+    var reduceT = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    slides.forEach(function(_, i){
+      var d = document.createElement('button');
+      d.className = 'tdot';
+      d.setAttribute('role','tab');
+      d.setAttribute('aria-label','Testimonial ' + (i+1));
+      d.addEventListener('click', function(){ go(i, true); });
+      dotsWrap.appendChild(d);
+    });
+    var dots = [].slice.call(dotsWrap.children);
+
+    function go(i, user){
+      idx = (i + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      dots.forEach(function(d, k){ d.setAttribute('aria-selected', String(k === idx)); });
+      if(user) restart();
+    }
+    function next(){ go(idx + 1); }
+    function restart(){
+      if(timer) clearInterval(timer);
+      if(!reduceT) timer = setInterval(next, 6500);
+    }
+
+    slider.querySelectorAll('.tarrow').forEach(function(b){
+      b.addEventListener('click', function(){ go(idx + parseInt(b.dataset.dir,10), true); });
+    });
+    slider.addEventListener('mouseenter', function(){ if(timer) clearInterval(timer); });
+    slider.addEventListener('mouseleave', restart);
+
+    /* touch swipe */
+    var x0 = null;
+    slider.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    slider.addEventListener('touchend', function(e){
+      if(x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if(Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1), true);
+      x0 = null;
+    }, {passive:true});
+
+    go(0);
+    restart();
+  }
+  /* ---- Story read more ---- */
+  var sToggle=document.getElementById('storyToggle');
+  if(sToggle){
+    var sBody=sToggle.closest('.story-body');
+    sToggle.addEventListener('click',function(){
+      var open=sBody.classList.toggle('is-open');
+      sToggle.setAttribute('aria-expanded',String(open));
+      sToggle.textContent = open
+        ? (document.documentElement.lang==='sv' ? 'L\u00e4s mindre' : 'Read less')
+        : (document.documentElement.lang==='sv' ? 'L\u00e4s mer' : 'Read more');
+    });
+  }
+
+  /* ---- Language switch (EN / SV) ---- */
+  var SV = {"Home": "Hem", "The Method": "Metoden", "Services": "Tjänster", "Questions": "Frågor", "Franchise": "Franchise", "Contact": "Kontakt", "Book the Opening Call": "Boka Öppningssamtalet", "Your business runs through you right now. It doesn't have to.": "Ditt företag går genom dig just nu. Det behöver det inte göra.", "You've got 50 to 150 people. Every approval and every exception still comes back to you.": "Du har 50 till 150 anställda. Varje godkännande och varje undantag hamnar fortfarande hos dig.", "Free. 60 minutes. No cost if the 10 wasted hours aren't there.": "Gratis. 60 minuter. Ingen kostnad om de 10 bortslösade timmarna inte finns där.", "Where the Hours Actually Go": "Vart timmarna faktiskt tar vägen", "Why does everything still have to go through you?": "Varför måste allt fortfarande gå genom dig?", "You already know the answer. You just haven't had time to fix it.": "Du vet redan svaret. Du har bara inte haft tid att fixa det.", "Leak 01": "Läcka 01", "Leak 02": "Läcka 02", "Leak 03": "Läcka 03", "Orders.": "Ordrar.", "Opened and copied into the ERP by hand. Fifteen times a day, sometimes more.": "Öppnas och kopieras in i affärssystemet för hand. Femton gånger om dagen, ibland fler.", "Email.": "Mejl.", "The same message answered twice, because nobody split the inboxes.": "Samma meddelande besvaras två gånger, för att ingen delade upp inkorgarna.", "Reclaims.": "Reklamationer.", "Once a year, everyone in a room, searching old threads for every product return from the last twelve months.": "En gång om året sitter alla i ett rum och letar i gamla trådar efter varenda returnerad produkt från de senaste tolv månaderna.", "You started this business to build something. Somewhere along the way it became a job where you're on call for problems nobody else can solve, because nobody else knows where all the pieces are.": "Du startade det här företaget för att bygga något. Någonstans på vägen blev det ett jobb där du är i beredskap för problem ingen annan kan lösa, för att ingen annan vet var alla delar finns.", "You've probably tried something already.": "Du har förmodligen redan testat något.", "ChatGPT is open in another tab right now.": "ChatGPT är öppet i en annan flik just nu.", "It answers questions. It doesn't run your order desk while you're three weeks into an actual vacation.": "Det svarar på frågor. Det driver inte din orderdesk medan du är tre veckor in i en riktig semester.", "The business isn't the problem. It's already profitable, already busy, already proof that you know what you're doing. The problem is narrower than that:": "Företaget är inte problemet. Det är redan lönsamt, redan fullt upp, redan ett bevis på att du vet vad du gör. Problemet är smalare än så:", "it only runs because you're inside it, every day, holding the pieces together by hand.": "det fungerar bara för att du är inuti det, varje dag, och håller ihop delarna för hand.", "Not ready to talk yet?": "Inte redo att prata än?", "See the actual numbers from one real client first": "Se de faktiska siffrorna från en riktig kund först", "Proof Before Promises": "Bevis före löften", "“Without data, you're just another person with an opinion.”": "”Utan data är du bara ännu en person med en åsikt.”", "orders a year": "ordrar per år", "automated workflows": "automatiserade flöden", "a week back": "i veckan tillbaka", "hrs": "tim", "Tradingbox / Solstickan Design.": "Tradingbox / Solstickan Design.", "Already running, not projected.": "Redan i drift, inte en prognos.", "About Tobias": "Om Tobias", "You already know what takes the most time. I build what removes it.": "Du vet redan vad som tar mest tid. Jag bygger det som tar bort det.", "Dörröppnaren isn't a metaphor I picked for a website. It's what I actually did.": "Dörröppnaren är ingen metafor jag valde till en webbplats. Det är vad jag faktiskt gjorde.", "Twenty years ago I started selling to the world's most demanding data companies. Betting operators, gaming platforms, banks. In the last ten years of it alone, I sold over 30 million dollars of the most expensive software there is and made President's Club five times. At Snowflake, my last stop, I watched the company grow from 350 million dollars to 2.6 billion while I was there.": "För tjugo år sedan började jag sälja till världens mest krävande datadrivna företag. Spelbolag, gamingplattformar, banker. Bara under de sista tio åren sålde jag mjukvara för över 30 miljoner dollar av det dyraste slaget och nådde President's Club fem gånger. På Snowflake, min sista anhalt, såg jag bolaget växa från 350 miljoner dollar till 2,6 miljarder medan jag var där.", "Somewhere in there my body started failing before I noticed. Bad kidneys, a bad liver, high cholesterol. All from stress. In the same stretch of years I lost nine people close to me to cancer.": "Någonstans där började kroppen svikta innan jag märkte det. Dåliga njurar, dålig lever, högt kolesterol. Allt från stress. Under samma år förlorade jag nio personer nära mig i cancer.", "My wife's youngest sister. A colleague I'd worked beside for years. My stepbrother.": "Min frus yngsta syster. En kollega jag arbetat bredvid i åratal. Min styvbror.", "Nine people. I had the money to stop. I didn't know how much time I had left to use it.": "Nio personer. Jag hade pengarna att sluta. Jag visste inte hur mycket tid jag hade kvar att använda dem.", "Behind the numbers, the picture was different. Constant pressure, never enough, and children growing up without me noticing. A blood test at 42 showed what my body thought of the pace: high cholesterol, poor kidney and liver values.": "Bakom siffrorna var bilden en annan. Konstant press, aldrig tillräckligt, och barn som växte upp utan att jag märkte det. Ett blodprov vid 42 visade vad kroppen tyckte om takten: högt kolesterol, dåliga njur- och levervärden.", "So in April 2023 I walked away. Not fired, not burned out into a settlement. I chose it, on my own terms, at 42.": "Så i april 2023 klev jag av. Inte uppsagd, inte utbränd in i ett avgångsvederlag. Jag valde det, på mina egna villkor, vid 42.", "The name of this company is Dörröppnaren. The Door Opener. I closed one very large door on my old life, and I've been opening smaller, better ones ever since. Now I open them for other people too.": "Företaget heter Dörröppnaren. Jag stängde en mycket stor dörr till mitt gamla liv, och har öppnat mindre, bättre dörrar sedan dess. Nu öppnar jag dem för andra också.", "I don't sell tools. I build the operational system that lets an owner-led company grow without the owner being the bottleneck. That's the whole job.": "Jag säljer inte verktyg. Jag bygger det operativa systemet som låter ett ägarlett företag växa utan att ägaren är flaskhalsen. Det är hela jobbet.", "Read more": "Läs mer", "Read less": "Läs mindre", "Five steps": "Fem steg", "The Dörröppnaren Method": "Dörröppnaren-metoden", "Five steps. Nothing gets built before it's measured.": "Fem steg. Inget byggs innan det är mätt.", "Diagnose.": "Diagnos.", "A free 60 minute call, just enough to know if there's real time to recover here. Skip this and you're guessing at the problem instead of measuring it.": "Ett kostnadsfritt 60-minuterssamtal, precis nog för att veta om det finns riktig tid att återvinna här. Hoppar du över det gissar du på problemet i stället för att mäta det.", "Map.": "Kartlägg.", "I write up exactly where the hours and money are leaking: which task, how often, what it costs you across a year.": "Jag skriver ner exakt var timmarna och pengarna läcker: vilken uppgift, hur ofta, vad det kostar dig över ett år.", "ROI Plan.": "ROI-plan.", "A short, ranked list. Build this first, because it pays for itself fastest. Build in the wrong order and the budget goes to the least valuable fix.": "En kort, rangordnad lista. Bygg det här först, för det betalar sig snabbast. Bygg i fel ordning och budgeten går till den minst värdefulla fixen.", "Build.": "Bygg.", "The automation gets built and tested against how your business actually works, not a generic template. Most builds take days, not months.": "Automationen byggs och testas mot hur ditt företag faktiskt fungerar, inte en generisk mall. De flesta bygg tar dagar, inte månader.", "Handover.": "Överlämning.", "You own every licence. Everything is documented and tested before I step back. The system doesn't depend on me any more than it should depend on you.": "Du äger varje licens. Allt är dokumenterat och testat innan jag kliver tillbaka. Systemet är inte mer beroende av mig än det borde vara av dig.", "“I already have a built-in library of what the next problem could be, based on the verticals I've studied.”": "”Jag har redan ett inbyggt bibliotek av vad nästa problem kan vara, baserat på de branscher jag studerat.”", "How I Build": "Hur jag bygger", "I don't build with homemade solutions.": "Jag bygger inte med hemmasnickrade lösningar.", "I use the same infrastructure the most effective operational teams in Europe are working with today.": "Jag använder samma infrastruktur som de mest effektiva operativa teamen i Europa arbetar med idag.", "That means the system is stable from day one. And it means you own it when we're done.": "Det betyder att systemet är stabilt från dag ett. Och det betyder att du äger det när vi är klara.", "No lock-ins. No proprietary code. No surprises.": "Inga inlåsningar. Ingen proprietär kod. Inga överraskningar.", "Why Not Just ChatGPT?": "Varför inte bara ChatGPT?", "Because a chatbot answers questions. It doesn't run your order desk.": "För att en chatbot svarar på frågor. Den driver inte din orderdesk.", "Doing nothing.": "Att göra ingenting.", "Costs you the same 60 hour weeks you're already working, and caps how big this business can get.": "Kostar dig samma 60-timmarsveckor du redan jobbar, och sätter ett tak för hur stort det här företaget kan bli.", "A Stockholm consultancy.": "En konsultfirma i Stockholm.", "Sells digital transformation at an hourly rate, in language built for a boardroom you don't sit in.": "Säljer digital transformation till timpris, på ett språk byggt för en styrelse du inte sitter i.", "A ChatGPT subscription.": "En ChatGPT-prenumeration.", "Answers questions well. It doesn't sort your inbox, crawl your orders, or keep running on Monday morning whether you're there or not.": "Svarar bra på frågor. Den sorterar inte din inkorg, går inte igenom dina ordrar och fortsätter inte köra på måndag morgon oavsett om du är där eller inte.", "What they say": "Vad de säger", "Tobias understood how we work, finished the build in a few days, and didn't overcomplicate it. Great knowledge and easy to work with.": "Tobias förstod hur vi jobbar, byggde klart på några dagar och krånglade inte till det. Grym kunskap och lätt att jobba med.", "Working with Tobias at Snowflake has been fantastic. He's helpful, solution-oriented and pragmatic. On top of that, a genuinely nice guy with great energy and interesting ideas!": "Det har varit toppen att jobba med Tobias på Snowflake. Han är hjälpsam, lösningsorienterad och pragmatisk. Utöver det en riktigt trevlig kille med härlig energi och intressanta idéer!", "How This Actually Works": "Så här funkar det", "No jargon. You'll know by the end of the free call if there's anything worth building.": "Ingen jargong. Du vet i slutet av det kostnadsfria samtalet om det finns något värt att bygga.", "The Opening Call": "Öppningssamtalet", "Free, 60 minutes, online or in person. I ask what's eating your week and do a rough check on whether there's real time to recover. No pitch.": "Gratis, 60 minuter, online eller på plats. Jag frågar vad som äter din vecka och gör en grov koll på om det finns riktig tid att återvinna. Ingen pitch.", "The Operational Freedom Plan": "Planen för operativ frihet", "A written map of your bottlenecks, what they cost you per year, and a prioritized build recommendation. If I can't find at least 10 hours a week worth automating, this costs you nothing.": "En skriven karta över dina flaskhalsar, vad de kostar dig per år, och en prioriterad byggrekommendation. Om jag inte hittar minst 10 timmar i veckan värda att automatisera kostar det dig ingenting.", "The Operational System Build": "Bygget av det operativa systemet", "I build, test, and document the automation itself, checked against how your business runs before anything goes live. Most builds land in days.": "Jag bygger, testar och dokumenterar automationen, kontrollerad mot hur ditt företag fungerar innan något går live. De flesta bygg landar på dagar.", "Local System Partner": "Lokal systempartner", "(optional)": "(valfritt)", "Ongoing improvements, support, new automations as they come up, a quarterly check in. Not required.": "Löpande förbättringar, support, nya automationer när de dyker upp, en kvartalsavstämning. Inte obligatoriskt.", "The Questions Under the Question": "Frågorna under frågan", "The doubts you're not saying out loud on the call.": "Tvivlen du inte säger högt på samtalet.", "Risk": "Risk", "Belief": "Övertygelse", "“Is this just another consultant wasting my time?”": "”Är det här bara ännu en konsult som slösar min tid?”", "If the diagnostic doesn't find at least 10 hours a week worth of manual work to automate, it's free and I walk away.": "Om diagnosen inte hittar minst 10 timmar i veckan av manuellt arbete värt att automatisera är den gratis och jag går därifrån.", "“I don't understand AI, it's too complicated.”": "”Jag förstår mig inte på AI, det är för komplicerat.”", "You don't need to. I translate it into hours and money, not technology.": "Det behöver du inte. Jag översätter det till timmar och pengar, inte teknik.", "“Will I be locked into your software forever?”": "”Blir jag inlåst i din mjukvara för alltid?”", "No. At handover, you own every licence and every piece of documentation.": "Nej. Vid överlämning äger du varje licens och varje dokumentation.", "I'm not a Stockholm company. That's the point.": "Jag är inget Stockholmsbolag. Det är hela poängen.", "If that sounds like a downside, this isn't for you.": "Om det låter som en nackdel är det här inte för dig.", "Companies in central Stockholm get called by every consultancy in the country. Companies forty-five minutes outside it mostly get called by no one, even doing the same revenue. I spent ten years selling to the first kind of company. I'd rather work with my neighbors now.": "Företag i centrala Stockholm blir uppringda av varje konsultfirma i landet. Företag fyrtiofem minuter utanför blir mest uppringda av ingen, trots samma omsättning. Jag ägnade tio år åt att sälja till den första sortens företag. Jag jobbar hellre med mina grannar nu.", "Good match:": "Bra matchning:", "Not a match:": "Ingen matchning:", "Your company does 30 to 300 million SEK in revenue in or near Täby.": "Ditt företag omsätter 30 till 300 miljoner kronor i eller nära Täby.", "You're still the one every approval and every exception comes back to.": "Du är fortfarande den som varje godkännande och varje undantag hamnar hos.", "You want proof it works before you commit a single krona.": "Du vill ha bevis på att det fungerar innan du satsar en enda krona.", "You want a logo you recognize from a billboard, not a person who answers the phone.": "Du vill ha en logotyp du känner igen från en reklamskylt, inte en person som svarar i telefon.", "You're hoping to hire your way out of this instead of fixing it.": "Du hoppas kunna anställa dig ur det här i stället för att lösa det.", "You'd rather keep guessing at where the hours go than spend 60 minutes finding out.": "Du fortsätter hellre gissa vart timmarna tar vägen än lägger 60 minuter på att ta reda på det.", "Open the Next Door.": "Öppna nästa dörr.", "Your business already proved it works. What's left is proving it doesn't need you standing inside it every hour of every day.": "Ditt företag har redan bevisat att det fungerar. Det som återstår är att bevisa att det inte behöver dig stående inuti varje timme varje dag.", "No pitch. No cost if I'm wrong.": "Ingen pitch. Ingen kostnad om jag har fel.", "One door closed. A few new ones opened.": "En dörr stängd. Några nya öppnade.", "Location": "Plats", "Follow": "Följ", "Site Map": "Webbkarta", "Cookie and Integritetspolicy": "Cookie- och integritetspolicy"};
+  var textNodes=[];
+  (function collect(node){
+    for(var i=0;i<node.childNodes.length;i++){
+      var n=node.childNodes[i];
+      if(n.nodeType===3){
+        if(n.nodeValue && n.nodeValue.trim().length>1) textNodes.push(n);
+      } else if(n.nodeType===1){
+        var t=n.tagName;
+        if(t!=='SCRIPT' && t!=='STYLE') collect(n);
+      }
+    }
+  })(document.body);
+
+  textNodes.forEach(function(n){ n.__en = n.nodeValue; });
+
+  function setLang(lang){
+    textNodes.forEach(function(n){
+      if(lang==='sv'){
+        var key=n.__en.trim();
+        if(SV[key]){
+          n.nodeValue = n.__en.replace(key, SV[key]);
+        }
+      } else {
+        n.nodeValue = n.__en;
+      }
+    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      var on = b.dataset.lang===lang;
+      b.classList.toggle('is-active',on);
+      b.setAttribute('aria-pressed',String(on));
+    });
+    /* keep the story toggle label in sync with its open state */
+    if(sToggle){
+      var open=sToggle.getAttribute('aria-expanded')==='true';
+      sToggle.textContent = lang==='sv'
+        ? (open?'L\u00e4s mindre':'L\u00e4s mer')
+        : (open?'Read less':'Read more');
+    }
+    try{ localStorage.setItem('doLang',lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click',function(){ setLang(b.dataset.lang); });
+  });
+
+  try{
+    var saved=localStorage.getItem('doLang');
+    if(saved==='sv') setLang('sv');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
