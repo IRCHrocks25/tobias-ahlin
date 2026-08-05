@@ -369,6 +369,7 @@ body.menu-locked{overflow:hidden}
   position:relative;
 }
 .story-more > *{overflow:hidden}
+.story-more-inner{display:grid;gap:1.1rem}
 .story-more::after{
   content:"";position:absolute;left:0;right:0;bottom:0;height:70px;
   background:linear-gradient(to bottom,rgba(255,255,255,0),var(--bg));
@@ -859,6 +860,7 @@ footer{background:var(--bg-soft);border-top:1px solid var(--line)}
       <div class="story-body">
         <p>Twenty years ago I started selling to the world's most demanding data companies. Betting operators, gaming platforms, banks. In the last ten years of it alone, I sold over 30 million dollars of the most expensive software there is and made President's Club five times. At Snowflake, my last stop, I watched the company grow from 350 million dollars to 2.6 billion while I was there.</p>
         <div class="story-more" id="storyMore">
+        <div class="story-more-inner">
         <p>Somewhere in there my body started failing before I noticed. Bad kidneys, a bad liver, high cholesterol. All from stress. In the same stretch of years I lost nine people close to me to cancer.</p>
         <p>My wife's youngest sister. A colleague I'd worked beside for years. My stepbrother.</p>
         <p><strong>Nine people. I had the money to stop. I didn't know how much time I had left to use it.</strong></p>
@@ -866,6 +868,7 @@ footer{background:var(--bg-soft);border-top:1px solid var(--line)}
         <p>So in April 2023 I walked away. Not fired, not burned out into a settlement. I chose it, on my own terms, at 42.</p>
         <p>The name of this company is Dörröppnaren. The Door Opener. I closed one very large door on my old life, and I've been opening smaller, better ones ever since. Now I open them for other people too.</p>
         <p class="story-pull">I don't sell tools. I build the operational system that lets an owner-led company grow without the owner being the bottleneck. That's the whole job.</p>
+        </div>
         </div>
         <button class="story-toggle" id="storyToggle" aria-expanded="false" aria-controls="storyMore">Read more</button>
       </div>
