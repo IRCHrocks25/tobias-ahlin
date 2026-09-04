@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dörröppnaren — Franchise Partner</title>
+<meta name="description" content="You have the trust. I have the method. Apply for a City Conversation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --blue:#E8622C;
+  --blue-dark:#C7481A;
+  --dark:#20262E;
+  --yellow:#E8622C;
+  --ink:#14171B;
+  --gray-70:#4A4A46;
+  --gray-50:#77756F;
+  --line:#DBD9D3;
+  --bg:#FFFFFF;
+  --bg-soft:#EDECE8;
+  --bg-tint:#F2F1ED;
+  --gutter:clamp(1rem, 5vw, 4rem);
+  --maxw:1240px;
+}
+
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{max-width:100%;overflow-x:hidden}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
+  font-size:1rem;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,video{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.wrap-wide{max-width:1680px;margin-inline:auto;padding-inline:clamp(1rem,3.2vw,3.25rem)}
+.section{border-bottom:1px solid var(--line)}
+.section-inner{padding-block:clamp(2.5rem,7vw,5rem)}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--blue);padding-bottom:.4rem}
+.eyebrow-ondark{color:#fff}
+h1,h2,h3{line-height:1.12;letter-spacing:-0.015em}
+.min-w-0{min-width:0}
+
+/* Arrow link */
+.arrow-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-weight:700;font-size:.9375rem;text-decoration:none;color:var(--ink);
+  min-height:44px;
+}
+.arrow-link::after{content:"›";font-size:1.2em;color:var(--blue);transform:translateY(-1px)}
+.arrow-link:hover{text-decoration:underline}
+.arrow-link.blue{color:var(--blue)}
+
+/* Pill buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  white-space:normal;text-align:center;line-height:1.35;
+  border-radius:999px;border:0;cursor:pointer;text-decoration:none;
+  font-family:inherit;font-weight:700;font-size:1rem;
+  padding:.9rem 2rem;min-height:48px;
+  width:100%;
+  transition:background .15s ease;
+}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-dark)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#333}
+.btn:focus-visible,.arrow-link:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:2px solid var(--blue);outline-offset:2px;
+}
+@media (min-width:640px){.btn{width:auto}}
+.risk-note{font-size:.875rem;color:var(--gray-50);margin-top:.75rem}
+
+/* ============ HEADER ============ */
+.topbar{
+  position:absolute;top:0;left:0;right:0;z-index:60;
+  background:transparent;border-bottom:0;
+}
+.topbar .nav-desktop a{color:#fff}
+.topbar .nav-desktop a.is-active{
+  border-bottom:2px solid var(--blue);border-radius:0;padding-bottom:.35rem;
+}
+.topbar .logo img{filter:brightness(0) invert(1)}
+.topbar .hamburger span{background:#fff}
+.lang-switch{display:none;align-items:center;gap:.35rem;margin-left:auto;margin-right:1rem}
+.lang-btn{
+  background:transparent;border:0;padding:.5rem .35rem;min-height:44px;cursor:pointer;
+  font-family:inherit;font-size:.875rem;font-weight:500;letter-spacing:.06em;
+  color:rgba(255,255,255,.6);transition:color .15s ease;
+}
+.lang-btn:hover{color:#fff}
+.lang-btn.is-active{color:#fff;font-weight:700}
+.lang-sep{color:rgba(255,255,255,.35);font-size:.875rem}
+.lang-switch-mobile{
+  display:flex;margin:1.5rem 0 0;padding-top:1rem;border-top:1px solid var(--line);
+}
+.lang-switch-mobile .lang-btn{color:var(--gray-50)}
+.lang-switch-mobile .lang-btn:hover,.lang-switch-mobile .lang-btn.is-active{color:var(--ink)}
+.lang-switch-mobile .lang-sep{color:var(--gray-50)}
+@media (min-width:1024px){.lang-switch:not(.lang-switch-mobile){display:flex}}
+.topbar .topbar-cta-desktop{
+  background:transparent;color:#fff;border:1px solid rgba(255,255,255,.65);
+}
+.topbar .topbar-cta-desktop:hover{background:rgba(255,255,255,.14)}
+.mobile-menu{top:64px}
+.topbar-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:64px;
+}
+.logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.logo img{height:38px;width:auto;display:block}
+.foot-brand .logo img{height:34px;filter:brightness(0)}
+
+.nav-desktop{display:none}
+.nav-desktop a{
+  text-decoration:none;font-size:.9375rem;font-weight:500;
+  padding:.5rem .75rem;min-height:44px;display:inline-flex;align-items:center;
+}
+.nav-desktop a:hover{text-decoration:underline;text-underline-offset:4px}
+.topbar-cta-desktop{display:none}
+
+.hamburger{
+  display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;background:none;border:0;cursor:pointer;align-items:center;
+}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:transform .2s ease,opacity .2s ease}
+.hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.is-open span:nth-child(2){opacity:0}
+.hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  position:fixed;inset:64px 0 0 0;background:#fff;z-index:55;
+  transform:translateX(100%);transition:transform .22s ease;
+  overflow-y:auto;padding:1.5rem var(--gutter) 3rem;
+  display:flex;flex-direction:column;gap:.25rem;
+}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a:not(.btn){
+  text-decoration:none;font-size:1.125rem;font-weight:500;
+  padding:.85rem 0;border-bottom:1px solid var(--line);min-height:44px;display:flex;align-items:center;
+}
+.mobile-menu a.is-active{color:var(--blue)}
+.mobile-menu .btn{margin-top:1.25rem}
+body.menu-locked{overflow:hidden}
+
+@media (min-width:1024px){
+  .hamburger,.mobile-menu{display:none}
+  .nav-desktop{display:flex;gap:.25rem}
+  .topbar-cta-desktop{display:inline-flex;padding:.6rem 1.4rem;min-height:44px;font-size:.9375rem}
+}
+
+/* ============ INNER HERO (shorter than home) ============ */
+.hero-inner-page{
+  position:relative;overflow:hidden;
+  min-height:min(88vh,780px);
+  display:flex;align-items:flex-end;
+  isolation:isolate;
+}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:#0d1420}
+.hero-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:1;
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(8,14,24,.78) 0%,rgba(8,14,24,.42) 45%,rgba(8,14,24,.86) 100%);
+}
+/* Placeholder pattern for hero — decorative diagonal grid until real image is dropped in */
+.hero-placeholder{
+  position:absolute;inset:0;z-index:-2;
+  background:
+    linear-gradient(135deg, rgba(232,98,44,.14) 0%, rgba(0,0,0,0) 40%),
+    radial-gradient(circle at 78% 32%, rgba(232,98,44,.18) 0%, transparent 55%),
+    linear-gradient(180deg, #14171B 0%, #20262E 60%, #0d1420 100%);
+}
+.hero-placeholder::after{
+  content:"";position:absolute;inset:0;opacity:.14;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr;width:100%;
+  padding-block:clamp(6rem,15vw,9rem) clamp(2.5rem,7vw,4.5rem);
+}
+.hero-body{max-width:62rem;min-width:0;color:#fff}
+.hero-body .eyebrow{color:#fff;border-bottom-color:var(--blue);margin-bottom:1.5rem}
+.hero-body h1{
+  font-size:clamp(2.2rem,5vw,4.25rem);
+  font-weight:400;letter-spacing:-.025em;line-height:1.1;
+  color:#fff;max-width:22ch;text-wrap:balance;
+}
+.hero-sub{
+  font-size:clamp(1rem,1.5vw,1.125rem);font-weight:400;
+  color:rgba(255,255,255,.86);max-width:52ch;margin-top:1.5rem;
+}
+.hero-sub strong{color:#fff;font-weight:500}
+.hero-cta{display:grid;gap:.75rem;justify-items:start;margin-top:2.25rem}
+.btn-hero{background:#fff;color:var(--ink);padding:.95rem 2.25rem;font-weight:500}
+.btn-hero:hover{background:rgba(255,255,255,.88)}
+.hero-inner-page .risk-note{color:rgba(255,255,255,.7);margin-top:0;max-width:52ch}
+
+/* Placeholder label for hero image slot */
+.hero-img-tag{
+  position:absolute;top:calc(64px + 1.25rem);right:1.25rem;z-index:2;
+  font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  padding:.35rem .6rem;border:1px dashed rgba(255,255,255,.35);border-radius:4px;
+  background:rgba(0,0,0,.2);
+}
+@media (min-width:768px){
+  .hero-img-tag{top:calc(64px + 1.75rem);right:1.75rem}
+}
+
+/* ============ IMAGE PLACEHOLDER UTILITY ============ */
+
+/* ============ ROW HEAD ============ */
+.row-head{display:grid;gap:.85rem;margin-bottom:2.25rem;justify-items:start}
+.row-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;letter-spacing:-.02em;line-height:1.12}
+.row-head .lede{color:var(--gray-70);max-width:60ch}
+
+/* ============ SECTION 2 | TRUST GAP prose ============ */
+.prose-cols{display:grid;gap:1.25rem;margin-top:2.25rem}
+.prose-cols p{color:var(--gray-70);max-width:62ch;font-size:1rem}
+.prose-cols p strong{color:var(--ink)}
+@media (min-width:1024px){.prose-cols{grid-template-columns:1fr 1fr;gap:3rem}}
+.soft-cta{margin-top:2rem;display:grid;gap:.35rem}
+.soft-cta span{font-size:.9375rem;color:var(--gray-50)}
+
+/* ============ SECTION 3 | ORIGIN STORY (two-column) ============ */
+.about-head{display:grid;justify-items:center;text-align:center;gap:1rem;margin-bottom:3rem}
+.about-head h2{
+  font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;
+  letter-spacing:-.02em;line-height:1.12;max-width:26ch;text-wrap:balance;
+}
+.about-lede{color:var(--gray-70);font-size:1.0625rem;max-width:54ch}
+.about-cols{display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:start}
+.about-portrait{position:relative}
+.story-body{display:grid;gap:1.1rem}
+.story-body p{color:var(--gray-70);font-size:.9875rem;max-width:66ch}
+.story-body p strong{color:var(--ink)}
+.story-pull{
+  font-size:1.125rem;font-weight:700;color:var(--ink);
+  border-left:4px solid var(--blue);padding-left:1rem;max-width:56ch;
+}
+@media (min-width:1024px){
+  .about-cols{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:4rem}
+}
+
+/* ============ SECTION 4 | PROOF STATS ============ */
+.proof{background:#fff}
+.proof-quote{font-size:clamp(1.05rem,2.1vw,1.5rem);font-weight:500;font-style:italic;color:var(--gray-70);max-width:none;margin-bottom:2.5rem}
+.stat-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
+.stat{
+  background:var(--bg-soft);border-radius:14px;
+  padding:2rem 1.75rem 1.75rem;
+  min-width:0;display:grid;gap:0;align-content:start;
+}
+.stat-icon{width:88px;height:88px;margin-bottom:1.5rem}
+.stat-icon svg{width:100%;height:100%;display:block}
+.stat-icon .wire{fill:none;stroke:var(--blue);stroke-width:1.4;stroke-linecap:round}
+.stat .num{
+  font-size:clamp(2.6rem,7vw,3.75rem);font-weight:400;letter-spacing:-.02em;
+  line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.stat .num .unit{font-size:.42em;font-weight:700;margin-left:.15em}
+.stat .lbl{font-size:.9375rem;color:var(--gray-70);margin-top:.65rem}
+.proof-src{margin-top:2rem;font-size:.9375rem;font-weight:700}
+.proof-src span{font-weight:400;color:var(--gray-50)}
+.proof-lede{color:var(--gray-70);max-width:66ch;margin-top:1.5rem;font-size:1rem}
+@media (min-width:768px){
+  .stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* ============ SECTION 5 | PLACEHOLDER TESTIMONIALS ============ */
+.tint{background:var(--bg-tint)}
+.placeholder-note{
+  display:flex;align-items:flex-start;gap:.85rem;
+  background:#fff;border:1px dashed rgba(20,23,27,.22);border-radius:10px;
+  padding:1rem 1.25rem;margin-bottom:2rem;
+  color:var(--gray-70);font-size:.9375rem;max-width:70ch;
+}
+.placeholder-note .ph-tag{
+  flex:none;font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:.3rem .55rem;background:var(--blue);color:#fff;border-radius:999px;line-height:1;
+  margin-top:.15rem;
+}
+.tcards{display:grid;grid-template-columns:1fr;gap:1.25rem}
+.tcard{
+  background:#fff;border-radius:14px;padding:1.75rem;
+  display:flex;flex-direction:column;gap:1.25rem;min-width:0;
+  border:1px solid rgba(17,17,17,.06);
+}
+.tcard blockquote{
+  font-size:1.0625rem;line-height:1.55;color:var(--ink);
+  font-weight:500;letter-spacing:-.005em;text-wrap:pretty;
+}
+.tcard-attr{
+  display:flex;align-items:center;gap:.85rem;
+  padding-top:1.25rem;border-top:1px solid var(--line);
+  color:var(--gray-70);font-size:.9375rem;
+}
+.tcard-avatar{
+  width:44px;height:44px;border-radius:50%;flex:none;
+  background:var(--bg-soft);border:1px dashed rgba(20,23,27,.22);
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--gray-50);font-size:.75rem;font-weight:700;
+}
+.tcard-attr .who{font-weight:500;color:var(--ink)}
+.tcard-attr .ctx{color:var(--gray-50);font-size:.8125rem;display:block;margin-top:.1rem}
+@media (min-width:768px){
+  .tcards{grid-template-columns:1fr 1fr;gap:1.5rem}
+  .tcard{padding:2rem}
+}
+
+/* ============ SECTION 6 | THE METHOD — bento ============ */
+.method{background:var(--bg-tint)}
+.method .lede{max-width:70ch}
+.method-intro{color:var(--gray-70);max-width:72ch;margin-bottom:2.5rem;font-size:1rem}
+.bento{
+  display:grid;grid-template-columns:1fr;gap:1rem;
+}
+.bcard{
+  background:#fff;border-radius:14px;padding:1.75rem;
+  display:flex;flex-direction:column;gap:0;min-width:0;
+  border:1px solid rgba(17,17,17,.05);
+}
+.bcard .b-icon{width:56px;height:56px;margin-bottom:1.25rem}
+.bcard .b-icon svg{width:100%;height:100%;display:block}
+.b-wire{fill:none;stroke:var(--blue);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.bcard h3{font-size:1.5rem;font-weight:400;letter-spacing:-.01em;margin-bottom:.6rem}
+.bcard p{color:var(--gray-70);font-size:.9875rem;max-width:44ch}
+.b-pill{
+  align-self:flex-start;margin-top:1.5rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:48px;min-height:44px;padding:.55rem 1.5rem;
+  border:1px solid var(--ink);border-radius:999px;
+  font-weight:500;font-size:.9375rem;line-height:1;
+}
+.bcard .b-body{flex:1}
+.bcard.is-blue{background:var(--dark);border-color:transparent;color:#fff}
+.bcard.is-blue p{color:rgba(255,255,255,.88)}
+.bcard.is-blue .b-wire{stroke:#fff}
+.bcard.is-blue .b-pill{border-color:rgba(255,255,255,.6);color:#fff}
+.bcard.is-split{padding:0;overflow:hidden;display:grid;grid-template-columns:1fr;border:0}
+.bcard.is-split .b-body-wrap{padding:1.75rem;display:flex;flex-direction:column}
+.bcard.is-split .b-media{position:relative;min-height:220px}
+@media (min-width:768px){
+  .bento{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .b-span2{grid-column:span 2}
+  .b-span3{grid-column:span 3}
+  .bcard{min-height:340px}
+  .bcard.is-split{grid-template-columns:1fr 1fr}
+  .bcard.is-split .b-media{min-height:100%}
+}
+@media (min-width:1024px){
+  .bento{gap:1.25rem}
+  .bcard{padding:2rem;min-height:380px}
+  .bcard.is-split .b-body-wrap{padding:2rem}
+}
+
+/* ============ SECTION 7 | THE MARKET (split with map) ============ */
+.market .row-head{margin-bottom:2rem}
+.market-grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:start}
+.market-copy p{color:var(--gray-70);margin-top:1rem;max-width:60ch;font-size:1rem}
+.market-copy p:first-child{margin-top:0}
+.market-copy p strong{color:var(--ink)}
+.market-map{width:100%}
+@media (min-width:900px){
+  .market-grid{grid-template-columns:1.15fr 1fr;gap:3rem}
+}
+
+/* ============ SECTION 8 | DIVISION OF LABOR ============ */
+.split-grid{display:grid;grid-template-columns:1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.split-col{padding:clamp(1.5rem,4vw,2.5rem);min-width:0;background:#fff}
+.split-col + .split-col{border-top:1px solid var(--line)}
+.split-col.is-you{background:var(--bg-soft)}
+.split-col .col-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gray-50);margin-bottom:1rem;
+}
+.split-col .col-tag::before{
+  content:"";width:10px;height:10px;background:var(--blue);border-radius:2px;display:inline-block;
+}
+.split-col.is-you .col-tag::before{background:var(--ink)}
+.split-col h3{font-size:1.75rem;font-weight:400;margin-bottom:1rem;letter-spacing:-.015em}
+.split-col p{color:var(--gray-70);font-size:.9875rem;max-width:52ch}
+.split-lede{color:var(--gray-70);margin-top:1.25rem;font-size:1rem;max-width:66ch}
+.split-lede strong{color:var(--ink)}
+@media (min-width:768px){
+  .split-grid{grid-template-columns:1fr 1fr}
+  .split-col + .split-col{border-top:0;border-left:1px solid var(--line)}
+}
+
+/* ============ SECTION 9 | THE ECONOMICS ============ */
+.econ{background:var(--bg-tint)}
+.econ-note{
+  display:grid;gap:.5rem;
+  background:#fff;border:1px dashed rgba(20,23,27,.22);border-radius:14px;
+  padding:1.5rem 1.75rem;margin-top:1.5rem;margin-bottom:2rem;max-width:70ch;
+}
+.econ-note .ph-line{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-50);
+}
+.econ-note .ph-line::before{
+  content:"";width:10px;height:10px;background:var(--blue);border-radius:2px;display:inline-block;
+}
+.econ-note p{color:var(--gray-70);font-size:.9375rem}
+.econ-body{display:grid;gap:1.25rem}
+.econ-body p{color:var(--gray-70);max-width:66ch;font-size:1rem}
+.econ-body p strong{color:var(--ink)}
+.econ-rule{
+  border-left:4px solid var(--blue);padding-left:1.25rem;
+  font-size:1.125rem;color:var(--ink);font-weight:500;max-width:60ch;
+}
+
+/* ============ SECTION 10 | OBJECTIONS ============ */
+.faq-cards{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+.faq-cards .card{
+  border-bottom:1px solid var(--line);
+  padding:1.5rem 0;
+  display:grid;gap:.6rem;align-content:start;min-width:0;
+}
+.faq-cards .card-tag{
+  justify-self:start;align-self:start;width:fit-content;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--blue);color:#fff;
+  border-radius:999px;padding:.4rem 1rem;
+  font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  line-height:1;margin-bottom:.35rem;
+}
+.faq-cards .card h3{font-size:1.35rem;font-weight:400;letter-spacing:-.01em}
+.faq-cards .card p{font-size:.9375rem;color:var(--gray-70);max-width:56ch}
+@media (min-width:768px){
+  .faq-cards{grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:1px solid var(--line)}
+  .faq-cards .card{border-bottom:0;padding:1.75rem 1.5rem;border-left:1px solid var(--line);border-top:1px solid var(--line)}
+  .faq-cards .card:nth-child(-n+2){border-top:0}
+  .faq-cards .card:nth-child(2n+1){border-left:0;padding-left:0}
+}
+
+/* ============ SECTION 11 | FIT FILTER ============ */
+.filter-grid{display:grid;grid-template-columns:1fr;border:1px solid var(--line)}
+.filter-col{padding:clamp(1.5rem,4vw,2.5rem);min-width:0}
+.filter-col + .filter-col{border-top:1px solid var(--line)}
+.filter-col h3{font-size:1.5rem;font-weight:400;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.badge{width:12px;height:12px;flex:none;display:inline-block}
+.badge.good{background:var(--blue)}
+.badge.bad{background:var(--gray-50)}
+.filter-col ul{list-style:none;display:grid;gap:.85rem}
+.filter-col li{color:var(--gray-70);font-size:.9875rem;padding-left:1.35rem;position:relative;max-width:52ch}
+.filter-col li::before{content:"›";position:absolute;left:0;color:var(--blue);font-weight:700}
+.filter-col.bad-col li::before{color:var(--gray-50)}
+.filter-intro{margin-bottom:2rem;display:grid;gap:.5rem}
+.filter-intro p{color:var(--gray-70)}
+@media (min-width:768px){
+  .filter-grid{grid-template-columns:1fr 1fr}
+  .filter-col + .filter-col{border-top:0;border-left:1px solid var(--line)}
+}
+
+/* ============ SECTION 12 | CLOSING ============ */
+.closing{
+  position:relative;overflow:hidden;isolation:isolate;
+  min-height:min(82vh,720px);
+  display:flex;align-items:center;
+}
+.closing-bg{
+  position:absolute;inset:0;z-index:-2;background:#0d1420 center/cover no-repeat;
+}
+.closing-placeholder{
+  position:absolute;inset:0;z-index:-2;
+  background:
+    linear-gradient(115deg, rgba(232,98,44,.16) 0%, transparent 45%),
+    radial-gradient(circle at 22% 68%, rgba(232,98,44,.14) 0%, transparent 60%),
+    linear-gradient(180deg, #14171B 0%, #20262E 55%, #0d1420 100%);
+}
+.closing-placeholder::after{
+  content:"";position:absolute;inset:0;opacity:.14;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+.closing-scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(to right, rgba(8,14,24,.82) 0%, rgba(8,14,24,.55) 34%, rgba(8,14,24,.12) 62%, rgba(8,14,24,0) 100%),
+    linear-gradient(to bottom, rgba(8,14,24,0) 0%, rgba(8,14,24,.10) 55%, rgba(8,14,24,.45) 100%);
+}
+.closing .section-inner{width:100%}
+.closing .eyebrow{color:#fff;border-bottom-color:var(--blue);margin-bottom:1.5rem}
+.closing h2{
+  font-size:clamp(2.2rem,5vw,4.25rem);
+  font-weight:400;letter-spacing:-.025em;line-height:1.1;
+  color:#fff;max-width:18ch;text-wrap:balance;
+}
+.closing p{
+  color:rgba(255,255,255,.92);max-width:56ch;margin-top:1.25rem;
+  font-size:clamp(1rem,1.5vw,1.125rem);
+}
+.closing .hero-cta{margin-top:2.25rem}
+.closing .risk-note{color:rgba(255,255,255,.7);margin-top:0;max-width:52ch}
+
+/* ============ FOOTER ============ */
+footer{background:var(--bg-soft);border-top:1px solid var(--line)}
+.foot-grid{
+  display:grid;grid-template-columns:1fr;gap:2rem;
+  padding-block:clamp(2.5rem,6vw,4rem);
+}
+.foot-col h4{font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-50);margin-bottom:.85rem}
+.foot-col ul{list-style:none;display:grid;gap:.4rem}
+.foot-col a{font-size:.9375rem;text-decoration:none;color:var(--gray-70);min-height:32px;display:inline-flex;align-items:center}
+.foot-col a:hover{text-decoration:underline}
+.foot-col p{font-size:.9375rem;color:var(--gray-70)}
+.foot-brand{display:grid;gap:.5rem;align-content:start}
+.foot-brand .logo{font-size:1.1rem}
+.foot-brand .tagline{font-size:.9375rem;color:var(--gray-50);font-style:italic}
+.foot-bottom{
+  border-top:1px solid var(--line);
+  padding-block:1.5rem;
+  display:flex;flex-direction:column;gap:.5rem;
+  font-size:.8125rem;color:var(--gray-50);
+}
+.foot-bottom a{color:var(--gray-50)}
+@media (min-width:768px){
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1024px){
+  .foot-grid{grid-template-columns:1.4fr repeat(4,minmax(0,1fr))}
+  .foot-bottom{flex-direction:row;justify-content:space-between;align-items:center}
+}
+
+/* ============ SMALL-SCREEN REFINEMENTS ============ */
+@media (max-width:640px){
+  /* Shorter hero + vertically centered text, matching the homepage fix,
+     so mobile isn't mostly empty background before the headline shows up. */
+  .hero-inner-page{min-height:80vh;min-height:80svh;align-items:center}
+  .hero-grid{padding-block:1.5rem}
+}
+@media (max-width:600px){
+  .bcard{min-height:0}
+  .bcard.is-split .b-media{min-height:220px}
+  .hero-inner-page .btn-hero,.closing .btn-hero{width:100%}
+}
+@media (max-width:380px){
+  .hero-body h1{font-size:2rem}
+  .row-head h2,.about-head h2,.closing h2{font-size:1.8rem}
+}
+
+/* ============ FRANCHISE MEDIA WIRING ============ */
+.about-portrait img{width:100%;height:auto;display:block;border-radius:0}
+.bcard.is-split .b-media img{width:100%;height:100%;object-fit:cover;display:block}
+.market-photo{margin:0;display:flex;flex-direction:column;gap:.85rem}
+.market-photo img{width:100%;height:auto;display:block;border-radius:14px;aspect-ratio:4/5;object-fit:cover}
+.market-photo figcaption{color:var(--gray-70);font-size:.875rem;max-width:34ch}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER (matches home) ============ -->
+<header class="topbar">
+  <div class="wrap-wide topbar-inner">
+    <a class="logo" href="index.html">
+      <img src="https://cdn.katalyst-crm.com/t1/logoo.png" alt="Dörröppnaren — The Door Opener">
+    </a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="index.html#method">The Method</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#questions">Questions</a>
+      <a href="#top" class="is-active" aria-current="page">Franchise</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="sv" aria-pressed="false">SV</button>
+    </div>
+    <a class="btn btn-primary topbar-cta-desktop" href="#apply">Apply for a City Conversation</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="index.html">Home</a>
+    <a href="index.html#method">The Method</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#questions">Questions</a>
+    <a href="#top" class="is-active" aria-current="page">Franchise</a>
+    <a href="index.html#contact">Contact</a>
+    <div class="lang-switch lang-switch-mobile" role="group" aria-label="Language">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="sv" aria-pressed="false">SV</button>
+    </div>
+    <a class="btn btn-primary" href="#apply">Apply for a City Conversation</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ SECTION 1 | HERO — OPEN DOORS TOGETHER ============ -->
+<section class="hero-inner-page" id="hero">
+  <div class="hero-bg" aria-hidden="true"><div class="hero-slide" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260903_184350_a7989a94-2b81-4db1-ace7-abe52cec95c3.png')"></div></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap-wide hero-grid">
+    <div class="hero-body">
+      <span class="eyebrow">Franchise Partner</span>
+      <h1>Open Doors Together</h1>
+      <p class="hero-sub">You have a method. You have a business model. You have a trust element. <strong>That's what a franchise partner gets.</strong> Everything else is just implementation.</p>
+      <div class="hero-cta">
+        <a class="btn btn-hero" href="#apply">Apply for a City Conversation</a>
+        <p class="risk-note">One conversation. No obligation. Not every city, and not everyone, is the right fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 | THE TRUST GAP ============ -->
+<section class="section" id="trust-gap">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Trust Gap</span>
+      <h2>You Already Have the Trust. You Don't Have the Method.</h2>
+    </div>
+    <div class="prose-cols">
+      <p>You've spent years building relationships in your city. People know you. They trust you. <strong>That's not something I can teach you, and it's not something most AI consultants will ever have.</strong></p>
+      <p>What you don't have yet is a proven way to turn that trust into a repeatable, profitable service. Most people trying to break into AI automation are guessing their way through it, hoping something works. That's not a business. That's a hobby with better marketing.</p>
+      <p>I built a method that already works. Not in theory. In an actual company, saving actual hours, this year. <strong>You bring the relationships. I bring the method.</strong> Neither one works as well alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 | ORIGIN STORY ============ -->
+<section class="section" id="origin">
+  <div class="wrap section-inner">
+    <div class="about-head">
+      <span class="eyebrow">The Origin Story</span>
+      <h2>Why a Stranger in Another City Reached Out First</h2>
+      <p class="about-lede">I didn't build a franchise pitch and go looking for buyers. Someone found me first.</p>
+    </div>
+    <div class="about-cols">
+      <div class="about-portrait">
+        <img src="https://cdn.katalyst-crm.com/t1/tobias.png" alt="Tobias Ahlin" loading="lazy">
+      </div>
+      <div class="story-body">
+        <p>Twenty years ago I started selling to the world's most demanding data companies. Betting operators, gaming platforms, banks. In the last ten years of it alone, I sold over 30 million dollars of the most expensive software there is and made President's Club five times. At Snowflake, my last stop, I watched the company grow from 350 million dollars to 2.6 billion while I was there.</p>
+        <p>Somewhere in there my body started failing before I noticed. Bad kidneys, a bad liver, high cholesterol. All from stress. In the same stretch of years I lost nine people close to me to cancer.</p>
+        <p>My wife's youngest sister. A colleague I'd worked beside for years. My stepbrother.</p>
+        <p><strong>Nine people. I had the money to stop. I didn't know how much time I had left to use it.</strong> So in April 2023 I walked away, on my own terms, at 42.</p>
+        <p>I wrote about all of it openly on LinkedIn. Not a sales page, just the truth. A month and a half ago, an entrepreneur in another city read it and reached out. He wasn't responding to a pitch. He was responding to something true.</p>
+        <p class="story-pull">That conversation is now a six-figure deal, verbally agreed. Not signed yet. But real enough that I know this works beyond my own city.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 | THE PROOF ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap section-inner">
+    <span class="eyebrow" style="margin-bottom:1rem">The Proof</span>
+    <p class="proof-quote" style="margin-top:1rem">Proof This Isn't Theoretical</p>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="28" y1="16" x2="92" y2="16"/>
+              <line x1="28" y1="104" x2="92" y2="104"/>
+              <path d="M34 16 L86 16 L60 60 L86 104 L34 104 L60 60 Z"/>
+              <path d="M46 92 L74 92 L64 78 L56 78 Z" fill="#E8622C" stroke="none"/>
+              <line x1="60" y1="58" x2="60" y2="76"/>
+            </g>
+          </svg>
+        </div>
+        <div class="num"><span data-count="13">0</span><span class="unit">hrs</span></div>
+        <div class="lbl">a week freed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="74" width="92" height="26"/>
+              <line x1="14" y1="84" x2="106" y2="84"/>
+              <line x1="60" y1="74" x2="60" y2="84"/>
+              <rect x="24" y="44" width="72" height="26"/>
+              <line x1="24" y1="54" x2="96" y2="54"/>
+              <line x1="60" y1="44" x2="60" y2="54"/>
+              <rect x="34" y="14" width="52" height="26"/>
+              <line x1="34" y1="24" x2="86" y2="24"/>
+              <line x1="60" y1="14" x2="60" y2="24"/>
+              <circle cx="46" cy="32" r="2.5" fill="#E8622C" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="num" data-count="8000" data-format="comma">0</div>
+        <div class="lbl">orders a year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g class="wire" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="60" y1="60" x2="22" y2="22"/>
+              <line x1="60" y1="60" x2="98" y2="22"/>
+              <line x1="60" y1="60" x2="22" y2="98"/>
+              <line x1="60" y1="60" x2="98" y2="98"/>
+              <line x1="22" y1="22" x2="98" y2="22"/>
+              <line x1="22" y1="98" x2="98" y2="98"/>
+              <line x1="22" y1="22" x2="22" y2="98"/>
+              <line x1="98" y1="22" x2="98" y2="98"/>
+              <circle cx="22" cy="22" r="6"/>
+              <circle cx="98" cy="22" r="6"/>
+              <circle cx="22" cy="98" r="6"/>
+              <circle cx="98" cy="98" r="6"/>
+              <circle cx="60" cy="60" r="9"/>
+            </g>
+            <circle cx="60" cy="60" r="3.5" fill="#E8622C"/>
+          </svg>
+        </div>
+        <div class="num"><span data-count="5">0</span></div>
+        <div class="lbl">automated workflows</div>
+      </div>
+    </div>
+    <p class="proof-lede">Tradingbox is a real company, not a case study built for this page. Every number here already happened, it isn't a projection of what might happen for you. This is the exact method a franchise partner would be running in their own city, on day one.</p>
+    <p class="proof-src">Tradingbox / Solstickan Design. <span>Already running, not projected.</span></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 | TESTIMONIALS (PLACEHOLDER) ============ -->
+<section class="section tint" id="testimonials">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">Voices</span>
+      <h2>What the People Already In This Are Saying</h2>
+    </div>
+    <div class="placeholder-note">
+      <span class="ph-tag">Placeholder</span>
+      <span>Real testimonials not yet collected. The example wording below shows the tone and specificity to aim for, not real quotes. Replace before this page goes live.</span>
+    </div>
+    <div class="tcards">
+      <figure class="tcard">
+        <blockquote>"I read what Tobias wrote about walking away from burnout, not a pitch, just the truth, and I knew this was someone who actually understood what running a business costs you."</blockquote>
+        <figcaption class="tcard-attr">
+          <span class="tcard-avatar" aria-hidden="true">?</span>
+          <span>
+            <span class="who">Name, City</span>
+            <span class="ctx">Placeholder quote · the entrepreneur who made the six-figure offer</span>
+          </span>
+        </figcaption>
+      </figure>
+      <figure class="tcard">
+        <blockquote>"I spent months trying to figure out AI automation on my own before this. Six weeks in, I had my first client and a method that actually worked."</blockquote>
+        <figcaption class="tcard-attr">
+          <span class="tcard-avatar" aria-hidden="true">?</span>
+          <span>
+            <span class="who">Name, City</span>
+            <span class="ctx">Placeholder quote · a coached franchise partner, once one exists</span>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 | THE METHOD — BENTO ============ -->
+<section class="section method" id="method">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Method</span>
+      <h2>The Method You Won't Have to Build From Scratch</h2>
+      <p class="lede">You don't need to invent a system, test it for a year, and hope it works. I already built one, proved it, and I'm handing it to you exactly as it is.</p>
+    </div>
+    <p class="method-intro">It's called the <strong style="color:var(--ink);font-weight:700">Dörröppnaren Method</strong>. Five steps, the same five every time, and here's what each one actually means for you.</p>
+
+    <div class="bento">
+
+      <!-- 1 — split card with image placeholder -->
+      <article class="bcard is-blue is-split b-span2">
+        <div class="b-body-wrap">
+          <div class="b-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <g class="b-wire">
+                <path d="M14 12 L50 12 L50 56 L14 56 Z"/>
+                <rect x="24" y="6" width="16" height="10" rx="2"/>
+                <path d="M26 28 C26 24, 29 21, 32 21 C35 21, 38 24, 38 28 C38 32, 32 33, 32 40"/>
+                <circle cx="32" cy="46" r="1.8" fill="#E8622C" stroke="none"/>
+              </g>
+            </svg>
+          </div>
+          <div class="b-body">
+            <h3>Diagnose.</h3>
+            <p>You don't walk into a client meeting guessing what to ask. You use the exact discovery process that already works, so your first conversation sounds like an expert, not a beginner.</p>
+          </div>
+          <span class="b-pill">1</span>
+        </div>
+        <div class="b-media">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260903_191143_4c162b2c-dbb3-4eca-9af2-1dbcd0d8a99d.png" alt="" loading="lazy">
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="24"/>
+              <line x1="32" y1="4" x2="32" y2="10"/>
+              <line x1="32" y1="54" x2="32" y2="60"/>
+              <line x1="4" y1="32" x2="10" y2="32"/>
+              <line x1="54" y1="32" x2="60" y2="32"/>
+              <path d="M32 14 L38 32 L32 50 L26 32 Z"/>
+              <path d="M32 14 L38 32 L26 32 Z" fill="#E8622C" stroke="none"/>
+              <circle cx="32" cy="32" r="2.5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Map.</h3>
+          <p>You don't have to figure out where to start. The mapping process tells you, in writing, exactly which problem to solve first.</p>
+        </div>
+        <span class="b-pill">2</span>
+      </article>
+
+      <!-- 3 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire" stroke-linecap="round">
+              <circle cx="10" cy="16" r="4" fill="#E8622C" stroke="none"/>
+              <line x1="18" y1="14" x2="54" y2="14"/>
+              <line x1="18" y1="20" x2="44" y2="20"/>
+              <circle cx="10" cy="32" r="4"/>
+              <line x1="18" y1="30" x2="46" y2="30"/>
+              <line x1="18" y1="36" x2="38" y2="36"/>
+              <circle cx="10" cy="48" r="4"/>
+              <line x1="18" y1="46" x2="40" y2="46"/>
+              <line x1="18" y1="52" x2="32" y2="52"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>ROI Plan.</h3>
+          <p>You don't have to sell on instinct or hope. You hand your client a real, ranked number, the same way I do.</p>
+        </div>
+        <span class="b-pill">3</span>
+      </article>
+
+      <!-- 4 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire" stroke-linecap="round">
+              <circle cx="22" cy="26" r="10"/>
+              <circle cx="22" cy="26" r="3.5" fill="#E8622C" stroke="none"/>
+              <line x1="22" y1="12" x2="22" y2="16"/>
+              <line x1="22" y1="36" x2="22" y2="40"/>
+              <line x1="8" y1="26" x2="12" y2="26"/>
+              <line x1="32" y1="26" x2="36" y2="26"/>
+              <line x1="12.5" y1="16.5" x2="15.3" y2="19.3"/>
+              <line x1="28.7" y1="32.7" x2="31.5" y2="35.5"/>
+              <line x1="31.5" y1="16.5" x2="28.7" y2="19.3"/>
+              <line x1="15.3" y1="32.7" x2="12.5" y2="35.5"/>
+              <circle cx="44" cy="44" r="8"/>
+              <circle cx="44" cy="44" r="2.5"/>
+              <line x1="44" y1="33" x2="44" y2="36"/>
+              <line x1="44" y1="52" x2="44" y2="55"/>
+              <line x1="33" y1="44" x2="36" y2="44"/>
+              <line x1="52" y1="44" x2="55" y2="44"/>
+              <line x1="36.2" y1="36.2" x2="38.3" y2="38.3"/>
+              <line x1="49.7" y1="49.7" x2="51.8" y2="51.8"/>
+              <line x1="51.8" y1="36.2" x2="49.7" y2="38.3"/>
+              <line x1="38.3" y1="49.7" x2="36.2" y2="51.8"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Build.</h3>
+          <p>You don't spend a year learning to build automations from zero. I coach you directly through builds that are already proven to work.</p>
+        </div>
+        <span class="b-pill">4</span>
+      </article>
+
+      <!-- 5 -->
+      <article class="bcard">
+        <div class="b-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g class="b-wire" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="32" r="7"/>
+              <circle cx="12" cy="32" r="2.5" fill="#E8622C" stroke="none"/>
+              <line x1="19" y1="32" x2="34" y2="32"/>
+              <line x1="28" y1="32" x2="28" y2="37"/>
+              <line x1="32" y1="32" x2="32" y2="37"/>
+              <rect x="40" y="12" width="18" height="40"/>
+              <path d="M40 12 L46 15 L46 49 L40 52"/>
+              <circle cx="43" cy="32" r="1.5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="b-body">
+          <h3>Handover.</h3>
+          <p>You don't lose the client once the work is done. The handover process is built to keep you as the trusted local partner, not a one-time vendor.</p>
+        </div>
+        <span class="b-pill">5</span>
+      </article>
+
+    </div>
+    <p class="method-intro" style="margin-top:2.5rem;margin-bottom:0">This is what you're actually licensing. Not a philosophy. <strong style="color:var(--ink);font-weight:700">A specific, repeatable process that already removed the guesswork for me, and now removes it for you.</strong></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 7 | THE MARKET ============ -->
+<section class="section market" id="market">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Market</span>
+      <h2>Your City Is Already Waiting</h2>
+    </div>
+    <div class="market-grid">
+      <div class="market-copy">
+        <p>I'm not interested in Stockholm, Gothenburg, or Malmö for this. Those cities already have local AI software partners fighting over the same clients. I looked instead at cities of <strong>50,000 to 75,000 people</strong>, the size I live near myself.</p>
+        <p>Ninety percent of companies in Sweden are small. Construction, manufacturing, plumbing, distribution. <strong>Nobody is calling them.</strong> Not the big consultancies, not the boutique AI shops, not anyone. That's not a smaller opportunity. It's a wide open one, in a market where you already have the relationships to walk through the door first.</p>
+        <p>I've identified roughly <strong>ten cities</strong> like this so far, matched on two things: the population range, and no local AI or automation partner already operating there. Yours might already be one of them.</p>
+      </div>
+      <div class="market-map">
+        <figure class="market-photo">
+          <img src="https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260903_194252_1af6f5ba-7a06-4c91-9cd1-f242a93379dd.png" alt="A quiet Swedish town main street at golden hour — the kind of place the method is designed for." loading="lazy">
+          <figcaption>Yours may already be one of them.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 8 | DIVISION OF LABOR ============ -->
+<section class="section" id="labor">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Division of Labor</span>
+      <h2>What I Do. What You Do.</h2>
+      <p class="lede">This isn't passive income, and I want to be honest about that upfront.</p>
+    </div>
+    <div class="split-grid">
+      <div class="split-col">
+        <span class="col-tag">What I Do</span>
+        <h3>The technical side.</h3>
+        <p>I stay on the technical side. I build the automations. I run the client meetings that need deep technical judgment. I coach you directly on how to run this in your city.</p>
+      </div>
+      <div class="split-col is-you">
+        <span class="col-tag">What You Do</span>
+        <h3>The relationships.</h3>
+        <p>You own the relationships. You bring the clients. You're the person in that city people already trust, and I make sure you have the method and the support to turn that trust into results.</p>
+      </div>
+    </div>
+    <p class="split-lede"><strong>Neither one of us is doing this alone.</strong></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 9 | THE ECONOMICS ============ -->
+<section class="section econ" id="economics">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Economics</span>
+      <h2>How the Money Actually Works</h2>
+    </div>
+    <div class="econ-note">
+      <span class="ph-line">Placeholder</span>
+      <p>Franchise fee structure, revenue split, and any upfront investment required. Not yet defined by Tobias. To be confirmed before this section can state real terms.</p>
+    </div>
+    <div class="econ-body">
+      <p class="econ-rule">The principle behind it: I don't sell hours. I sell results.</p>
+      <p>With my direct clients, I take a percentage of the money I save them across a year. My rule is simple: <strong>if my diagnostic can't find at least 10 hours a week worth of manual work to automate, I walk away, and it costs the client nothing.</strong></p>
+      <p>The exact franchise numbers still need to be finalized, but that same logic, paid for value delivered, not hours logged, is what any structure will be built on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 10 | THE OBJECTIONS ============ -->
+<section class="section" id="objections">
+  <div class="wrap section-inner">
+    <div class="row-head">
+      <span class="eyebrow">The Objections</span>
+      <h2>The Questions Before You Apply</h2>
+    </div>
+    <div class="faq-cards">
+      <div class="card">
+        <span class="card-tag">Structure</span>
+        <h3>"Is this multi-level marketing?"</h3>
+        <p>Not as it's structured today. This is one method, one coaching relationship, one city.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Skill</span>
+        <h3>"Do I need to be technical myself?"</h3>
+        <p>No. I stay on the technical side. You need to understand your market and your clients, not write code.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Risk</span>
+        <h3>"What if I don't hit results right away?"</h3>
+        <p>We talk about that honestly before you commit to a city. This only works if it works for both of us.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Future</span>
+        <h3>"What happens to this if AI changes?"</h3>
+        <p>The method isn't built around one tool. It's built around finding where a business is leaking time and money, and fixing it. That doesn't go away.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 11 | THE FIT FILTER ============ -->
+<section class="section">
+  <div class="wrap section-inner">
+    <div class="filter-intro">
+      <span class="eyebrow" style="margin-bottom:.5rem">The Fit Filter</span>
+      <h2 style="font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:400;letter-spacing:-.02em;line-height:1.12">Not Everyone Should Apply</h2>
+    </div>
+    <div class="filter-grid">
+      <div class="filter-col">
+        <h3><span class="badge good" aria-hidden="true"></span>Good fit:</h3>
+        <ul>
+          <li>You've spent years building real relationships in your city.</li>
+          <li>You want a handful of serious clients, not hundreds of accounts.</li>
+          <li>You're driven enough to run this yourself, not looking for someone to run it for you.</li>
+        </ul>
+      </div>
+      <div class="filter-col bad-col">
+        <h3><span class="badge bad" aria-hidden="true"></span>Not a fit:</h3>
+        <ul>
+          <li>You're looking for passive income with no real involvement.</li>
+          <li>You don't have existing relationships in a mid-sized Swedish city.</li>
+          <li>You want to compete specifically in Stockholm, Gothenburg, or Malmö.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 12 | CLOSE ============ -->
+<section class="closing" id="apply">
+  <div class="closing-bg" aria-hidden="true" style="background-image:url('https://d8j0ntlcm91z4.cloudfront.net/user_35NBuSfIPglHIOMZxxqoxDRFcyj/hf_20260903_184302_7b7367a8-3ad0-420f-bf45-7aeb2fd39e19.png');background-size:cover;background-position:center;position:absolute;inset:0;z-index:-2"></div>
+  <div class="closing-scrim" aria-hidden="true"></div>
+  <div class="wrap-wide section-inner">
+    <span class="eyebrow">The Close</span>
+    <h2>Let's Open the Next One Together</h2>
+    <p>I opened one door for myself. Walked away from twenty years in enterprise sales to build something that actually gives people their time back. Now I'm building something bigger than one city, a growing community of AI entrepreneurs running the same proven method in their own markets, backed by the same coaching that got the first one off the ground.</p>
+    <p style="margin-top:.75rem"><strong style="color:#fff;font-weight:500">If that's you, let's talk.</strong></p>
+    <div class="hero-cta">
+      <a class="btn btn-hero" href="mailto:tobbe@xn--drrppnaren-ecbc.se?subject=City%20Conversation%20Application">Apply for a City Conversation</a>
+      <p class="risk-note">13 hours a week freed for one client already. The same method is waiting for the right city.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER (matches home) ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col foot-brand">
+      <a class="logo" href="index.html">
+        <img src="https://cdn.katalyst-crm.com/t1/logoo.png" alt="Dörröppnaren — The Door Opener">
+      </a>
+      <p class="tagline">One door closed. A few new ones opened.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:tobbe@xn--drrppnaren-ecbc.se">tobbe@dörröppnaren.se</a></li>
+        <li><a href="#apply">[placeholder: phone number]</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Location</h4>
+      <p>Täby, Stockholm North, Sweden<br>[placeholder: street address]</p>
+    </div>
+    <div class="foot-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/tobiasahlin/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Site Map</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#method">The Method</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#questions">Questions</a></li>
+        <li><a href="franchise.html">Franchise</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 [placeholder: legal entity name]. All rights reserved.</span>
+    <a href="https://docs.google.com/document/d/16aY4UWW5zMtZQZR2xDeRI2Zmax4tFqBbCObAUoRfyko/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Cookie and Integritetspolicy</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---- Mobile menu ---- */
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  var mq = window.matchMedia('(min-width: 1024px)');
+
+  function setOpen(open){
+    menu.classList.toggle('open', open);
+    btn.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-locked', open);
+  }
+
+  btn.addEventListener('click', function(){
+    setOpen(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ setOpen(false); });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function(e){
+    if(menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)){
+      setOpen(false);
+    }
+  });
+  function onMQ(e){ if(e.matches) setOpen(false); }
+  if(mq.addEventListener){ mq.addEventListener('change', onMQ); } else { mq.addListener(onMQ); }
+
+  /* ---- Count-up on scroll ---- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var counters = [].slice.call(document.querySelectorAll('[data-count]'));
+
+  function fmt(n, comma){
+    n = Math.round(n);
+    return comma ? n.toLocaleString('en-US') : String(n);
+  }
+  function run(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var comma = el.getAttribute('data-format') === 'comma';
+    if(reduce){ el.textContent = fmt(target, comma); return; }
+    var dur = 1400, start = null;
+    function ease(t){ return 1 - Math.pow(1 - t, 3); }
+    function step(ts){
+      if(start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = fmt(target * ease(p), comma);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target, comma);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if('IntersectionObserver' in window && counters.length){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ run(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function(c){ io.observe(c); });
+  } else {
+    counters.forEach(run);
+  }
+
+  /* ---- Language switch (EN / SV) — nav + footer strings only.
+         Franchise page body copy stays in EN until Swedish translation is provided. ---- */
+  var SV = {
+    "Home":"Hem",
+    "The Method":"Metoden",
+    "Services":"Tjänster",
+    "Questions":"Frågor",
+    "Franchise":"Franchise",
+    "Contact":"Kontakt",
+    "Apply for a City Conversation":"Ansök om ett stadssamtal",
+    "One door closed. A few new ones opened.":"En dörr stängd. Några nya öppnade.",
+    "Location":"Plats",
+    "Follow":"Följ",
+    "Site Map":"Webbkarta"
+  };
+
+  var textNodes=[];
+  (function collect(node){
+    for(var i=0;i<node.childNodes.length;i++){
+      var n=node.childNodes[i];
+      if(n.nodeType===3){
+        if(n.nodeValue && n.nodeValue.trim().length>1) textNodes.push(n);
+      } else if(n.nodeType===1){
+        var t=n.tagName;
+        if(t!=='SCRIPT' && t!=='STYLE') collect(n);
+      }
+    }
+  })(document.body);
+
+  textNodes.forEach(function(n){ n.__en = n.nodeValue; });
+
+  function setLang(lang){
+    textNodes.forEach(function(n){
+      if(lang==='sv'){
+        var key=n.__en.trim();
+        if(SV[key]){
+          n.nodeValue = n.__en.replace(key, SV[key]);
+        }
+      } else {
+        n.nodeValue = n.__en;
+      }
+    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      var on = b.dataset.lang===lang;
+      b.classList.toggle('is-active',on);
+      b.setAttribute('aria-pressed',String(on));
+    });
+    try{ localStorage.setItem('doLang',lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click',function(){ setLang(b.dataset.lang); });
+  });
+
+  try{
+    var saved=localStorage.getItem('doLang');
+    if(saved==='sv') setLang('sv');
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
