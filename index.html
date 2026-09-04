@@ -194,6 +194,12 @@ body.menu-locked{overflow:hidden}
   display:grid;grid-template-columns:1fr;width:100%;
   padding-block:clamp(4rem,13vw,7rem) clamp(2.5rem,7vw,4.5rem);
 }
+@media (max-width:640px){
+  /* Shorter hero + vertically centered text so mobile isn't mostly empty
+     background before the headline shows up. */
+  .hero{min-height:85vh;min-height:85svh;align-items:center}
+  .hero-grid{padding-block:1.5rem}
+}
 .hero-inner{max-width:62rem;min-width:0;color:#fff}
 .hero h1{
   font-size:clamp(2.2rem,5vw,4.25rem);
@@ -666,7 +672,7 @@ footer{background:var(--bg-soft);border-top:1px solid var(--line)}
       <a href="#method">The Method</a>
       <a href="#services">Services</a>
       <a href="#questions">Questions</a>
-      <a href="#franchise">Franchise</a>
+      <a href="franchise.html">Franchise</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language">
@@ -684,7 +690,7 @@ footer{background:var(--bg-soft);border-top:1px solid var(--line)}
     <a href="#method">The Method</a>
     <a href="#services">Services</a>
     <a href="#questions">Questions</a>
-    <a href="#franchise">Franchise</a>
+    <a href="franchise.html">Franchise</a>
     <a href="#contact">Contact</a>
     <div class="lang-switch lang-switch-mobile" role="group" aria-label="Language">
       <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
@@ -1372,7 +1378,7 @@ footer{background:var(--bg-soft);border-top:1px solid var(--line)}
         <li><a href="#method">The Method</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#questions">Questions</a></li>
-        <li><a href="#franchise">Franchise</a></li>
+        <li><a href="franchise.html">Franchise</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
